@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form id="my-form">
+        <label for="Api-Key">API Key:</label>
+        <input type="text" name="api" id="api"><br><br>
+        <label for="Secret-Key">Secret Key:</label>
+        <input type="text" name="secret" id="secret"><br><br>
+        <textarea cols="50" rows="10" name="tf-contents" id="tf-contents"></textarea></p>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const socket = io();
+        document.querySelector('#my-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            
+            const api = document.querySelector('#api').value;
+            const secret = document.querySelector('#secret').value;
+            const tf_contents = document.querySelector('#tf-contents').value;
+            
+            socket.emit('cmd_req', { api, secret, tf_contents });
+        });
+    </script>
+</body>
+</html>
