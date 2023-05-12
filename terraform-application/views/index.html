@@ -6,29 +6,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <script type='text/javascript' src=''></script>
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
     <title>Document</title>
 </head>
-<body>
-    <form id="my-form">
-        <label for="Api-Key">API Key:</label>
-        <input type="text" name="api" id="api"><br><br>
-        <label for="Secret-Key">Secret Key:</label>
-        <input type="text" name="secret" id="secret"><br><br>
-        <textarea cols="50" rows="10" name="tf-contents" id="tf-contents"></textarea></p>
-        <button type="submit">Submit</button>
-    </form>
+<body oncontextmenu='return false' class='snippet-body'> 
+  <div class="container">
+    Terraform on WebApp
+    <ul class="cards">
+        <li class="card">
+          <div>
+              <h3 class="card-title">Server HealthCheck</h3>
+              <div class="card-content"> 
+                <form id="health_check_form">
+                  <textarea id="log-health" cols="50" rows="40"></textarea>
+                  <button type="submit" class="submit_btn">check</button>
+                </form>
+              </div>
+          </div>
+        </li>
+        <li class="card">
+            <div>
+                <h3 class="card-title">Credentials</h3>
+                <div class="card-content">
+                  <form id="my-form">
+                    <label for="Api-Key">API Key:</label>
+                    <input type="text" name="api" id="api"><br><br>
+                    <label for="Secret-Key">Secret Key:</label>
+                    <input type="text" name="secret" id="secret"><br><br>
+                    <textarea cols="50" rows="10" name="tf-contents" id="tf-contents"></textarea></p>
+                    <button type="submit" class="submit_btn">Submit</button>
+                  </form>
+                </div>
+            </div>
+            <div class="card-link-wrapper">
+                <a href="" class="card-link">Learn More</a>
+            </div>
+        </li>
+        <li class="card">
+            <div>
+                <h3 class="card-title">T</h3>
+                <div class="card-content">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repudiandae magnam harum natus fuga et repellat in maiores.</p>
+                </div>
+            </div>
+            <div class="card-link-wrapper">
+                <a href="" class="card-link">Learn More</a>
+            </div>
+        </li>
+        <li class="card">
+            <div>
+              
+            </div>
+            <div class="card-link-wrapper">
+                <a href="" class="card-link">Learn More</a>
+            </div>
+        </li>
+        <li class="card">
+            <div>
+              
+            </div>
+            <div class="card-link-wrapper">
+                <a href="" class="card-link">Learn More</a>
+            </div>
+        </li>>
+        <li class="card">
+            <div>
+              
+            </div>
+            <div class="card-link-wrapper">
+                <a href="" class="card-link">Learn More</a>
+            </div>
+        </li>
+        <li class="card">
+            <div>
+              
+            </div>
+            <div class="card-link-wrapper">
+                <a href="" class="card-link">Learn More</a>
+            </div>
+        </li>
+        <li class="card">
+            <div>
+              
+            </div>
+            <div class="card-link-wrapper">
+                <a href="" class="card-link">Learn More</a>
+            </div>
+        </li>
+        <li class="card">
+            <div>
+              
+            </div>
+            <div class="card-link-wrapper">
+                <a href="" class="card-link">Learn More</a>
+            </div>
+        </li>
+    </ul>
+  </div>
+  <script>
+    const socket = io();
+    socket.on('log_health', function(data) {
+      console.log(data);
+      var textarea_str = $("#log-health").val();
+      console.log(textarea_str);
+      textarea_str += data;
+      $("#log-health").html(textarea_str); 
+    });
+    document.querySelector('#my-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        const api = document.querySelector('#api').value;
+        const secret = document.querySelector('#secret').value;
+        const tf_contents = document.querySelector('#tf-contents').value;
+        const log_health = document.querySelector('#log-health').value;
+        
+        socket.emit('cmd_req', { api, secret, tf_contents });
+    });
+    document.querySelector('#health_check_form').addEventListener('submit', (event) => {
+        event.preventDefault();
 
-    <script>
-        const socket = io();
-        document.querySelector('#my-form').addEventListener('submit', (event) => {
-            event.preventDefault();
-            
-            const api = document.querySelector('#api').value;
-            const secret = document.querySelector('#secret').value;
-            const tf_contents = document.querySelector('#tf-contents').value;
-            
-            socket.emit('cmd_req', { api, secret, tf_contents });
-        });
-    </script>
+        socket.emit('health_check', {});
+    });
+</script>
 </body>
 </html>
