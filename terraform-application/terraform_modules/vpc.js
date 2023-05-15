@@ -16,7 +16,7 @@ exports.createVpc = function() {
             {name="06.sub-testname-prod-db-c-01", cidr = "10.0.32.0/24", default_gateway = "non" },
         ]
         igw = true 
-        nat = ["01.sub-testname-prod-pub-a-01", "02.sub-testname-prod-pub-c-01"]
+        nat = ["01.sub-testname-prod-pub-a-01", "02.su b-testname-prod-pub-c-01"]
         tags = { 
             Env  = "test"
         }
