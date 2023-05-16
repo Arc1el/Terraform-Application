@@ -8,205 +8,256 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
-    <script type='text/javascript' src=''></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
-    <title>Document</title>
+    <title>Terraform on WebApp</title>
 </head>
 <body oncontextmenu='return false' class='snippet-body'> 
-<div class="container">
-    <h3>Terraform on WebApp</h3>
-    <ul class="cards">
-        <li class="card">
+<div class="not_cards">
+    <h1>Terraform on WebApp</h1>
+    <ul class="not_cards">
+        <li class="not_card">
             <div>
-                <h3 class="card-title">Server Console Log</h3>
+                <h2 class="card-title">Server Console Log</h2>
                 <div class="card-content"> 
                     <form id="health_check_form">
-                        <textarea id="log-health" cols="40" rows="40"></textarea>
-                        <button type="submit" class="submit_btn">Health Check</button>
+                        <textarea id="log-health" cols="45" rows="50"></textarea><br>
+                        <button type="submit" class="not_submit_btn">Health<br>Check</button>
+                        <button type="button" class="not_submit_btn">Clear<br>Logs</button>
+                        <button type="button" class="not_submit_btn">Terraform<br>Destroy</button>
+                    </form>
+                </div>
+            </div>
+        </li> 
+    </ul> 
+</div>
+<div class="container"> 
+    <ul class="cards">
+        <li class="card">
+            <h1 class="card-title">Credentials & Config</h1>
+            <form id="config-form">
+            <div> 
+                <div class="card-content" > 
+                        <table>
+                            <tr>
+                                <td>
+                                    <label for="Api-Key"><h3>Access Key</h3><hr></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="access_key" id="access_key"><br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Secret-Key"><h3>Secret Key</h3><hr></label> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="secret_key" id="secret_key"><br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Region"><h3>Region</h3><hr></label> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="region" id="region"><br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="arn"><h3>ARN
+                                    </h3><hr></label> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="arn" id="arn"><br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Project-Title"><h3>Project Title</h3><hr></label> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="project" id="project"><br><br><br><br><br><br><br><br><br><br><br><br>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    
+                </div>
+                <div class="card-content"></div>
+                <div class="card-content" id = "btn_div" style="position:relative;" >
+                    <table style="text-align: right; position: absolute; bottom:0;">
+                        <tr>
+                            <td>
+                                <!-- <textarea cols="40" rows="27" name="tf-contents" id="tf-contents"></textarea></p> -->
+                                <button type="submit" class="submit_btn">Create Providers.tf</button>
+                            </td> 
+                        </tr> 
+                    </table>
+                </div>
                 </form>
             </div>
-        </div>
+        </li>
+        <li class="card">
+            <h1 class="card-title">VPC</h1>
+            <form id="vpc-form">
+                <div class="card-content">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="cidr"><h3>VPC CIDR</h3><hr></label> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input placeholder="10.0.0.0/16" type="text" name="cidr" id="vpc_cidr"><br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3 style="display: inline-block;">Public Subnets&nbsp;&nbsp;</h3>
+                                <select name ="pub" id="select_pub_subnets" style="position: absolute; right:0;">
+                                    <option value = 0 selected>0</option>
+                                    <option value = 1>1</option>
+                                    <option value = 2 >2</option>
+                                    <option value = 3>3</option>
+                                    <option value = 4>4</option>
+                                </select><hr>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id = "table_pub_subnets">
+                        <tr id = "pub_subnet_tr">
+                        </tr>
+                    </table><br>
+                    <table>
+                        <tr>
+                            <td>
+                                <h3 style="display: inline-block;">Private Subnets&nbsp;&nbsp;</h3>
+                                <select name ="priv" id="select_priv_subnets" style="position: absolute; right:0;">
+                                    <option value = 0 selected>0</option>
+                                    <option value = 1>1</option>
+                                    <option value = 2 >2</option>
+                                    <option value = 3>3</option>
+                                    <option value = 4>4</option>
+                                </select><hr>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id = "table_pirv_subnets">
+                        <tr id = "priv_subnet_tr">
+                        </tr>
+                    </table><br>
+                    <table>
+                        <tr>
+                            <td>
+                                <h3 style="display: inline-block;">Database Subnets&nbsp;&nbsp;</h3>
+                                <select name ="db" id="select_db_subnets" style="position: absolute; right:0;">
+                                    <option value = 0 selected>0</option>
+                                    <option value = 1>1</option>
+                                    <option value = 2 >2</option>
+                                    <option value = 3>3</option>
+                                    <option value = 4>4</option>
+                                </select><hr>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id = "table_db_subnets"> 
+                    </table>
+                </div>
+                <div class="card-content">
+                    <table>
+                        <tr>
+                            <td>
+                                <h3 style="display: inline-block;">Nat Gateway&nbsp;&nbsp;</h3>
+                                <select name="select_nat_gateway" id="select_nat_gateway" style="position: absolute; right:0;">
+                                    <option value=0 selected>0</option>
+                                    <option value=1 >1</option>
+                                    <option value=2 >2</option>
+                                    <option value=3 >3</option>
+                                    <option value=4 >4</option>
+                                    <option value=5 >5</option>
+                                </select><hr>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id = "table_nat_gateways">
+                    </table><br>
+                </div>
+                <div class="card-content" id = "btn_div" style="position:relative;" >
+                    <table style="text-align: right; position: absolute; bottom:0;">
+                        <tr>
+                            <td>
+                                <!-- <textarea cols="40" rows="27" name="tf-contents" id="tf-contents"></textarea></p> -->
+                                <button type="submit" class="submit_btn">Create VPC.tf</button>
+                            </td> 
+                        </tr> 
+                    </table>
+                </div>
+            </form>
         </li>
         <li class="card">
             <div>
-                <h3 class="card-title">Credentials & Config</h3>
-                <div class="card-content">
-                    <form id="config-form">
-                        <table>
-                            <tr>
-                                <td>
-                                    <label for="Api-Key">API Key</label> 
-                                </td>
-                                <td>
-                                    <input type="text" name="api" id="api">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="Secret-Key">Secret Key</label> 
-                                </td>
-                                <td>
-                                    <input type="text" name="secret" id="secret">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="Region">Region</label> 
-                                </td>
-                                <td>
-                                    <input type="text" name="region" id="region">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="Project-Title">Project Title&nbsp;&nbsp;&nbsp;</label> 
-                                </td>
-                                <td>
-                                    <input type="text" name="project" id="project">
-                                </td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td>
-                                    <textarea cols="40" rows="27" name="tf-contents" id="tf-contents"></textarea></p>
-                                    <button type="submit" class="submit_btn">Create Providers.tf</button>
-                                </td> 
-                            </tr> 
-                        </table> 
-                    </form>
-                </div>
+                <h1 class="card-title">Resouces that will be create</h1>
+                <form id="confirm-form">
+                    <div class="card-content">
+                    </div>
+                    <div class="card-content">
+                    </div>
+                    <div class="card-content">
+                    </div> 
+                </form>
             </div>
         </li>
         <li class="card">
             <div>
-                <h3 class="card-title">VPC</h3>
-                <div class="card-content">
-                    <form id="vpc-form">
-                        <table>
+                <h1 class="card-title">Terraform Commands</h1>
+                <form id="terraform-form">
+                    <div class="card-content">
+                        <table style="text-align: right; position: absolute; bottom:0;">
                             <tr>
                                 <td>
-                                    <label for="cidr">VPC_CIDR</label> 
-                                </td>
-                                <td>
-                                    <input placeholder="10.0.0.0/16" type="text" name="cidr" id="cidr">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Subnets
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="pub">Public</label> 
-                                </td>
-                                <td>
-                                    <select name ="pub" id="select_pub_subnets">
-                                        <option value = 0 selected>0</option>
-                                        <option value = 1>1</option>
-                                        <option value = 2 >2</option>
-                                        <option value = 3>3</option>
-                                        <option value = 4>4</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="priv">Private</label> 
-                                </td>
-                                <td>
-                                    <select name ="priv" id="select_priv_subnets">
-                                        <option value = 0 selected>0</option>
-                                        <option value = 1>1</option>
-                                        <option value = 2 >2</option>
-                                        <option value = 3>3</option>
-                                        <option value = 4>4</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="db">Database</label> 
-                                </td>
-                                <td>
-                                    <select name ="db" id="select_db_subnets">
-                                        <option value = 0 selected>0</option>
-                                        <option value = 1>1</option>
-                                        <option value = 2 >2</option>
-                                        <option value = 3>3</option>
-                                        <option value = 4>4</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                        <table id = "table_pub_subnets">
-                            <tr id = "pub_subnet_tr">
-                            </tr>
-                        </table>
-                        <table id = "table_pirv_subnets">
-                            <tr id = "priv_subnet_tr">
-                            </tr>
-                        </table>
-                        <table id = "table_db_subnets">
-                            <tr>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td>
-                                    NatGateway
-                                </td>
-                                <td>
-                                    <select name="select_nat_gateway" id="select_nat_gateway">
-                                        <option value=0 selected>0</option>
-                                        <option value=1 >1</option>
-                                        <option value=2 >2</option>
-                                        <option value=3 >3</option>
-                                        <option value=4 >4</option>
-                                        <option value=5 >5</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                        <table id = "table_nat_gateways">
-                        </table>
-                        <table>
-                            <tr>
-                                <td>
-                                    <!-- <textarea cols="40" rows="27" name="tf-contents" id="tf-contents"></textarea></p> -->
-                                    <button type="submit" class="submit_btn">Create VPC.tf</button>
+                                    <textarea cols="50" rows="38" name="tf-contents" id="tf-contents"></textarea></p>
+                                    <!-- <button type="submit" class="submit_btn">Init</button> -->
                                 </td> 
                             </tr> 
                         </table>
-            
-                    </form>
-                </div>
+                    </div>
+                    <div class="card-content">
+                        <table style="text-align: right; position: absolute; bottom:0;">
+                            <tr>
+                                <td>
+                                    <textarea cols="50" rows="38" name="tf-contents" id="tf-contents"></textarea></p>
+                                    <!-- <button type="submit" class="submit_btn">Plan</button> -->
+                                </td> 
+                            </tr> 
+                        </table>
+                    </div>
+                    <div class="card-content">
+                        <table style="text-align: right; position: absolute; bottom:0;">
+                            <tr>
+                                <td>
+                                    <textarea cols="50" rows="38" name="tf-contents" id="tf-contents"></textarea></p>
+                                    <!-- <button type="submit" class="submit_btn">Apply</button> -->
+                                </td> 
+                            </tr> 
+                        </table>
+                    </div> 
+                </form>
             </div>
         </li>
         <li class="card">
             <div>
-            </div>>
-        </li>
-        <li class="card">
-            <div>
-            </div>>
-        </li>>
-        <li class="card">
-            <div>
             </div>
-        </li>
-        <li class="card">
-            <div>
-            </div>>
-        </li>
-        <li class="card">
-            <div>  
-            </div>>
-        </li>
-        <li class="card">
-            <div> 
-            </div>>
         </li>
     </ul>
 </div>
