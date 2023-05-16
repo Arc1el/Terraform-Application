@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -47,6 +48,7 @@ app.use(function(err, req, res, next) {
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'ap-northeast-2'});
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
+var s3_2 = require('./aws_modules/s3');
 
 //Terraform
 const { spawn } = require('child_process');
@@ -64,8 +66,8 @@ app.io.on('connection', async (socket) => {
     });
 
     socket.on('health_check', (data) => {
-      var msg_available = "===============================\n"
-      msg_available += "*** Server is now Available ***\n===============================\n"
+      var msg_available = "==============================================\n"
+      msg_available += "*** Server is now Available ***\n==============================================\n"
       socket.emit('log_health', msg_available);
       const terraform_init = spawn('terraform', ['-v']);
           //`-chdir=${tf_file_path}`
@@ -84,6 +86,89 @@ app.io.on('connection', async (socket) => {
               console.error('Terraform init failed');
             }
       });
+    });
+
+    socket.on('create_providers', (data) => {
+      socket.emit('log_health', "==============================================\n");
+      socket.emit('log_health', "create Providers.tf...\n");
+      socket.emit('log_health', "==============================================\n");
+      console.log(data);
+      const region = data.region;
+      const access_key = data.access_key;
+      const secret_key = data.secret_key;
+      const project = data.project;
+      const arn = data.arn;
+
+      console.log("in careate_providers ", region, access_key, secret_key, project, arn);
+      
+      providers_context = provider.createProviders({region, access_key, secret_key, project, arn});
+      s3_res = s3_2.s3Upload({access_key: access_key, filename: "providers.tf", socket: socket, context: providers_context});
+
+      socket.emit('log_health', providers_context);
+      socket.emit('log_health', "==============================================\n");
+      socket.emit('log_health', "create Providers.tf Successfully!!\n");
+      socket.emit('log_health', "==============================================\n\n");
+    });
+    
+    socket.on('create_vpc', (data) => {
+      socket.emit('log_health', "==============================================\n");
+      socket.emit('log_health', "create VPC.tf...\n");
+      socket.emit('log_health', "==============================================");
+      console.log("data received: ");
+      console.log(data)
+
+      const access_key = data.access_key;
+      const title = data.title;
+      const vpc_cidr = data.vpc_cidr;
+      const public_subnet_data = data.public_subnet_data;
+      const private_subnet_data = data.private_subnet_data;
+      const database_subnet_data = data.database_subnet_data;
+      const nat_gateway_data = data.nat_gateway_data;
+      console.log("nat_gateway_data : ", nat_gateway_data)
+      vpc_tf_context = vpc.createVpc({title, vpc_cidr, public_subnet_data, private_subnet_data, database_subnet_data, nat_gateway_data})
+      console.log(vpc_tf_context);
+
+      console.log("key value : ", access_key)
+
+      s3_res = s3_2.s3Upload({access_key: access_key, filename: "vpc.tf", socket: socket, context: vpc_tf_context});
+      // new Promise(resolve => {
+      //   const url = api + "/tfcode/vpc.tf";
+      //   let uploadParams =  {Bucket : "terraform-webapp", Key: url, Body: ""};
+      //   uploadParams.Body = vpc_tf_context;
+
+      //   s3.upload(uploadParams, function (err, data) {
+      //       if (err) {
+      //           console.log("Error", err);
+      //       } if (data) {
+      //           console.log("Upload Success", data.Location);
+      //           resolve();
+      //       }
+      //   });
+
+      //   }).then(() => {
+      //       let store_url = "./tf_files/" + api + "/vpc.tf";
+      //       let downloadParams = {Bucket : "terraform-webapp", Key: ''};
+      //       downloadParams.Key = api + "/tfcode/vpc.tf";
+      //       s3.getObject(downloadParams, function (err, data) {
+      //           if (err) {
+      //               console.log("Error", err);
+      //           } if (data) {
+      //               try{
+      //                   !fs.existsSync("tf_files/" + api) && fs.mkdirSync("tf_files/" + api)
+      //                   fs.writeFileSync(store_url, data.Body.toString());
+      //                   console.log("Download complete", store_url);
+      //               }catch(err){
+      //                   console.log("Error", err);
+      //               }finally{
+      //               }
+      //           }
+      //       });
+      //   }).then(() => {
+      //     socket.emit('log_health', vpc_tf_context);
+      //     socket.emit('log_health', "\n==============================================\n");
+      //     socket.emit('log_health', "create VPC.tf Successfully!!\n");
+      //     socket.emit('log_health', "==============================================\n\n");
+      //   })
     });
 
     socket.on('cmd_req', async (data) => {
