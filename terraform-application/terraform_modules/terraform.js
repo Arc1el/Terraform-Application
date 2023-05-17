@@ -5,6 +5,24 @@ function removeANSI(text){
     var pattern = /\u001b\[[0-9;]*m/g;
     return text.replace(pattern, ''); 
 }
+function convertANSIEscapeSequences(text) {
+    var html = text.replace(/\u001b\[(\d+)m/g, function(match, p1) {
+        var style = '';
+            switch (parseInt(p1)) {
+                case 31: // 빨강
+                    style = 'color: red';
+                break;
+                case 32: // 초록
+                    style = 'color: green';
+                break;
+            }
+        return '<span style="' + style + '">';
+    });
+    html = html.replace(/\u001b\[0m/g, '</span>');
+    html = html.replace(/\n/g, '<br>');
+    html = html.replace(/\t/g, '<span style="display: inline-block; width: 4ch;"></span>');
+    return html;
+}
 
 exports.version = function (data) {
     const socket = data.socket;
@@ -29,6 +47,7 @@ exports.init = function (data) {
     const terraform_init = spawn('terraform', [`-chdir=${tf_file_path}`, 'init']);
     terraform_init.stdout.on('data', (data) => {
         console.log(data.toString());
+        socket.emit('tf_log', convertANSIEscapeSequences(data.toString())); 
         socket.emit('log_health', removeANSI(data.toString())); 
     }); 
     terraform_init.stderr.on('data', (data) => {
@@ -47,10 +66,13 @@ exports.plan = function (data) {
     const terraform_plan = spawn('terraform', [`-chdir=${tf_file_path}`, 'plan']);
     terraform_plan.stdout.on('data', (data) => {
         console.log(data.toString());
-        socket.emit('log_health', removeANSI(data.toString())); 
+        socket.emit('tf_log', convertANSIEscapeSequences(data.toString())); 
+        socket.emit('log_health', removeANSI(data.toString()));
     }); 
     terraform_plan.stderr.on('data', (data) => {
         console.error(data.toString());
+        socket.emit('tf_log', convertANSIEscapeSequences(data.toString())); 
+        socket.emit('log_health', removeANSI(data.toString()));
     }); 
     terraform_plan.on('exit', (code) => {
         if (code === 0) logger.logSeperate({socket, msg:"Terraform Plan Successfully"});
@@ -64,11 +86,14 @@ exports.apply = function (data) {
 
     const terraform_apply = spawn('terraform', [`-chdir=${tf_file_path}`, 'apply', '-auto-approve']);
     terraform_apply.stdout.on('data', (data) => {
+        socket.emit('tf_log', convertANSIEscapeSequences(data.toString())); 
         console.log(data.toString());
         socket.emit('log_health', removeANSI(data.toString())); 
     }); 
     terraform_apply.stderr.on('data', (data) => {
         console.error(data.toString());
+        socket.emit('tf_log', convertANSIEscapeSequences(data.toString())); 
+        socket.emit('log_health', removeANSI(data.toString()));
     }); 
     terraform_apply.on('exit', (code) => {
         if (code === 0) logger.logSeperate({socket, msg:"Terraform Apply Successfully"});
@@ -82,6 +107,7 @@ exports.destroy = function (data) {
 
     const terraform_destroy = spawn('terraform', [`-chdir=${tf_file_path}`, 'destroy', '-auto-approve']);
     terraform_destroy.stdout.on('data', (data) => {
+        socket.emit('tf_log', convertANSIEscapeSequences(data.toString())); 
         console.log(data.toString());
         socket.emit('log_health', removeANSI(data.toString())); 
     }); 
