@@ -78,7 +78,7 @@ app.io.on('connection', async (socket) => {
       const project     = data.project;
       const arn         = data.arn;
       
-      !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key);
+      !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key, {recursive: true});
       let providers_context = provider.createProviders({region, access_key, secret_key, project, arn});
       socket.emit('log_health', providers_context);
       s3.upload({access_key: access_key, filename: "providers.tf", socket: socket, context: providers_context});
