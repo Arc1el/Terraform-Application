@@ -1,11 +1,14 @@
+var fs = require('fs');
+
 exports.createProviders = function(data) {
+    const region        = data.region;
+    const access_key    = data.access_key;
+    const secret_key    = data.secret_key;
+    const project       = data.project;
+    const arn           = data.arn;
     
-    const region = data.region;
-    const access_key = data.access_key;
-    const secret_key = data.secret_key;
-    const project = data.project;
-    const arn = data.arn;
-    console.log("create Providers start.", region, access_key, secret_key)
+    !fs.existsSync(access_key) && fs.mkdirSync(access_key);
+
     try{
         var providers_code = `terraform {
     required_providers {
