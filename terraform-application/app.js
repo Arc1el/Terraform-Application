@@ -103,30 +103,27 @@ app.io.on('connection', async (socket) => {
     socket.on('terraform_init', (data) => {
       logger.logSeperate({socket, msg : "Terraform Initialization"});
       const access_key = data.access_key;
-
       terraform.init({socket, path : access_key}); 
     });
 
     socket.on('terraform_plan', (data) => {
-      logger.logSeperate({socket, msg : "Terraform Initialization"});
+      logger.logSeperate({socket, msg : "Terraform Plan"});
       const access_key = data.access_key;
-
-      terraform.init({socket, path : access_key}); 
+      terraform.plan({socket, path : access_key}); 
     });
 
     socket.on('terraform_apply', (data) => {
-      logger.logSeperate({socket, msg : "Terraform Initialization"});
+      logger.logSeperate({socket, msg : "Terraform Apply"});
       const access_key = data.access_key;
-
-      terraform.init({socket, path : access_key}); 
+      terraform.apply({socket, path : access_key}); 
     });
 
-    socket.on('terraform_distroy', (data) => {
-      logger.logSeperate({socket, msg : "Terraform Initialization"});
+    socket.on('terraform_destroy', (data) => {
+      logger.logSeperate({socket, msg : "Terraform Destroy"});
       const access_key = data.access_key;
-
-      terraform.init({socket, path : access_key}); 
+      terraform.destroy({socket, path : access_key}); 
     });
+    
   }catch (e) {
     logger.logging(e);
     console.error(e);
