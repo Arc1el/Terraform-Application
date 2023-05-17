@@ -51,6 +51,22 @@ h2 {
     bottom: 0;
 }
 
+.tf_btn {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background: var(--btncolor);
+    padding: 6px 12px;
+    border: 0;
+    border-radius: 8px;
+    transition: background 0.2s;
+    height: 50px;
+    width: 20%;
+    font-size: 15px;
+    bottom: 0;
+}
+
+
 .not_submit_btn{
     display: inline-block;
     text-decoration: none;
@@ -69,7 +85,7 @@ h2 {
 .cards {
     display: flex;
     padding: 25px 0px;
-    height: 800px;
+    height: 850px;
     list-style: none;
     overflow-x: scroll;
     -ms-scroll-snap-type: x mandatory;
@@ -105,7 +121,7 @@ h2 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
     scroll-snap-align: start;
     transition: all 0.2s;
-    height: 750px;
+    height: 820px;
 }
 
 

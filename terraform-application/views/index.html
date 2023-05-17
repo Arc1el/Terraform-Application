@@ -20,7 +20,7 @@
                 <h2 class="card-title">Server Console Log</h2>
                 <div class="card-content"> 
                     <form id="health_check_form">
-                        <textarea id="log-health" cols="45" rows="50"></textarea><br>
+                        <textarea id="log-health" cols="45" rows="55"></textarea><br>
                         <button type="submit" class="not_submit_btn">Health<br>Check</button>
                         <button type="button" class="not_submit_btn">Clear<br>Logs</button>
                         <button type="button" class="not_submit_btn">Terraform<br>Destroy</button>
@@ -222,35 +222,12 @@
             <div>
                 <h1 class="card-title">Terraform Commands</h1>
                 <form id="terraform-form">
-                    <div class="card-content">
-                        <table style="text-align: right; position: absolute; bottom:0;">
-                            <tr>
-                                <td>
-                                    <textarea cols="50" rows="38" name="tf-contents" id="tf-contents"></textarea></p>
-                                    <!-- <button type="submit" class="submit_btn">Init</button> -->
-                                </td> 
-                            </tr> 
-                        </table>
-                    </div>
-                    <div class="card-content">
-                        <table style="text-align: right; position: absolute; bottom:0;">
-                            <tr>
-                                <td>
-                                    <textarea cols="50" rows="38" name="tf-contents" id="tf-contents"></textarea></p>
-                                    <!-- <button type="submit" class="submit_btn">Plan</button> -->
-                                </td> 
-                            </tr> 
-                        </table>
-                    </div>
-                    <div class="card-content">
-                        <table style="text-align: right; position: absolute; bottom:0;">
-                            <tr>
-                                <td>
-                                    <textarea cols="50" rows="38" name="tf-contents" id="tf-contents"></textarea></p>
-                                    <!-- <button type="submit" class="submit_btn">Apply</button> -->
-                                </td> 
-                            </tr> 
-                        </table>
+                    <div class="card-content" style="width: 100%;">
+                        <textarea cols="218" rows="50" name="tf-contents" id="tf-contents"></textarea></p>
+                        <button type="button" class="tf_btn" id="tf_init_btn">Init</button>
+                        <button type="button" class="tf_btn" id="tf_plan_btn"">Plan</button>
+                        <button type="button" class="tf_btn" id="tf_apply_btn">Apply</button>
+                        <button type="button" class="tf_btn" id="tf_destroy_btn">Destroy</button>
                     </div> 
                 </form>
             </div>
