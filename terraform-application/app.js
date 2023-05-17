@@ -45,13 +45,13 @@ app.use(function(err, req, res, next) {
 });
 
 //AWS
-var AWS = require('aws-sdk');
-AWS.config.update({region: 'ap-northeast-2'});
-const s3 = new AWS.S3({apiVersion: '2006-03-01'});
-var s3_2 = require('./aws_modules/s3');
+var s3 = require('./aws_modules/s3');
+
+//Logging to Browser
+var logger = require('./socket_logger/logger');
 
 //Terraform
-const { spawn } = require('child_process');
+var terraform = require('./terraform_modules/terraform');
 var provider = require('./terraform_modules/provider');
 var vpc = require('./terraform_modules/vpc');
 
@@ -66,233 +66,70 @@ app.io.on('connection', async (socket) => {
     });
 
     socket.on('health_check', (data) => {
-      var msg_available = "==============================================\n"
-      msg_available += "*** Server is now Available ***\n==============================================\n"
-      socket.emit('log_health', msg_available);
-      const terraform_init = spawn('terraform', ['-v']);
-          //`-chdir=${tf_file_path}`
-          terraform_init.stdout.on('data', (data) => {
-            console.log(data.toString());
-            socket.emit('log_health', data.toString()); 
-          }); 
-          terraform_init.stderr.on('data', (data) => {
-            console.error(data.toString());
-          }); 
-          terraform_init.on('exit', (code) => {
-            if (code === 0) {
-              console.log('Terraform init succeeded');
-              socket.emit('log_health', "\n");
-            } else {
-              console.error('Terraform init failed');
-            }
-      });
+      logger.logSeperate({socket, msg : "*** Server is now Available ***"});
+      terraform.version({socket});
     });
 
     socket.on('create_providers', (data) => {
-      socket.emit('log_health', "==============================================\n");
-      socket.emit('log_health', "create Providers.tf...\n");
-      socket.emit('log_health', "==============================================\n");
-      console.log(data);
-      const region = data.region;
-      const access_key = data.access_key;
-      const secret_key = data.secret_key;
-      const project = data.project;
-      const arn = data.arn;
-
-      console.log("in careate_providers ", region, access_key, secret_key, project, arn);
+      logger.logSeperate({socket, msg : "create Providers.tf..."});
+      const region      = data.region;
+      const access_key  = data.access_key;
+      const secret_key  = data.secret_key;
+      const project     = data.project;
+      const arn         = data.arn;
       
-      providers_context = provider.createProviders({region, access_key, secret_key, project, arn});
-      s3_res = s3_2.s3Upload({access_key: access_key, filename: "providers.tf", socket: socket, context: providers_context});
-
+      let providers_context = provider.createProviders({region, access_key, secret_key, project, arn});
       socket.emit('log_health', providers_context);
-      socket.emit('log_health', "==============================================\n");
-      socket.emit('log_health', "create Providers.tf Successfully!!\n");
-      socket.emit('log_health', "==============================================\n\n");
+      s3.upload({access_key: access_key, filename: "providers.tf", socket: socket, context: providers_context});
+      logger.logSeperate({socket, msg : "create Providers.tf Successfully!!"});
     });
     
     socket.on('create_vpc', (data) => {
-      socket.emit('log_health', "==============================================\n");
-      socket.emit('log_health', "create VPC.tf...\n");
-      socket.emit('log_health', "==============================================");
-      console.log("data received: ");
-      console.log(data)
+      logger.logSeperate({socket, msg : "create VPC.tf..."});
+      const access_key            = data.access_key;
+      const title                 = data.title;
+      const vpc_cidr              = data.vpc_cidr;
+      const public_subnet_data    = data.public_subnet_data;
+      const private_subnet_data   = data.private_subnet_data;
+      const database_subnet_data  = data.database_subnet_data;
+      const nat_gateway_data      = data.nat_gateway_data;
 
+      let vpc_tf_context = vpc.createVpc({title, vpc_cidr, public_subnet_data, private_subnet_data, database_subnet_data, nat_gateway_data})
+      socket.emit('log_health', vpc_tf_context);
+      s3.upload({access_key: access_key, filename: "vpc.tf", socket: socket, context: vpc_tf_context});
+      logger.logSeperate({socket, msg : "create VPC.tf Successfully!!"});
+    });
+    
+    socket.on('terraform_init', (data) => {
+      logger.logSeperate({socket, msg : "Terraform Initialization"});
       const access_key = data.access_key;
-      const title = data.title;
-      const vpc_cidr = data.vpc_cidr;
-      const public_subnet_data = data.public_subnet_data;
-      const private_subnet_data = data.private_subnet_data;
-      const database_subnet_data = data.database_subnet_data;
-      const nat_gateway_data = data.nat_gateway_data;
-      console.log("nat_gateway_data : ", nat_gateway_data)
-      vpc_tf_context = vpc.createVpc({title, vpc_cidr, public_subnet_data, private_subnet_data, database_subnet_data, nat_gateway_data})
-      console.log(vpc_tf_context);
 
-      console.log("key value : ", access_key)
-
-      s3_res = s3_2.s3Upload({access_key: access_key, filename: "vpc.tf", socket: socket, context: vpc_tf_context});
-      // new Promise(resolve => {
-      //   const url = api + "/tfcode/vpc.tf";
-      //   let uploadParams =  {Bucket : "terraform-webapp", Key: url, Body: ""};
-      //   uploadParams.Body = vpc_tf_context;
-
-      //   s3.upload(uploadParams, function (err, data) {
-      //       if (err) {
-      //           console.log("Error", err);
-      //       } if (data) {
-      //           console.log("Upload Success", data.Location);
-      //           resolve();
-      //       }
-      //   });
-
-      //   }).then(() => {
-      //       let store_url = "./tf_files/" + api + "/vpc.tf";
-      //       let downloadParams = {Bucket : "terraform-webapp", Key: ''};
-      //       downloadParams.Key = api + "/tfcode/vpc.tf";
-      //       s3.getObject(downloadParams, function (err, data) {
-      //           if (err) {
-      //               console.log("Error", err);
-      //           } if (data) {
-      //               try{
-      //                   !fs.existsSync("tf_files/" + api) && fs.mkdirSync("tf_files/" + api)
-      //                   fs.writeFileSync(store_url, data.Body.toString());
-      //                   console.log("Download complete", store_url);
-      //               }catch(err){
-      //                   console.log("Error", err);
-      //               }finally{
-      //               }
-      //           }
-      //       });
-      //   }).then(() => {
-      //     socket.emit('log_health', vpc_tf_context);
-      //     socket.emit('log_health', "\n==============================================\n");
-      //     socket.emit('log_health', "create VPC.tf Successfully!!\n");
-      //     socket.emit('log_health', "==============================================\n\n");
-      //   })
+      terraform.init({socket, path : access_key}); 
     });
 
-    socket.on('cmd_req', async (data) => {
-      var api_key = data.api;
-      var secret_key = data.secret;
+    socket.on('terraform_plan', (data) => {
+      logger.logSeperate({socket, msg : "Terraform Initialization"});
+      const access_key = data.access_key;
 
-      !fs.existsSync("tf_files") && fs.mkdirSync("tf_files");
+      terraform.init({socket, path : access_key}); 
+    });
 
-      var tf_context = "";
-      tf_context += provider.getProviders();
-      tf_context += vpc.createVpc();
-      console.log(tf_context);
-      var filename = "main.tf";
+    socket.on('terraform_apply', (data) => {
+      logger.logSeperate({socket, msg : "Terraform Initialization"});
+      const access_key = data.access_key;
 
-      const tf_file_path = path.join(__dirname, "./tf_files/" + api_key );
-      console.log (tf_file_path);
+      terraform.init({socket, path : access_key}); 
+    });
 
-      async function terraformPipeExcution (params) {
-        new Promise(resolve => {
-          const url = params.api_key + "/tfcode/main.tf";
-          const tf_context = params.tf_context;
-          let uploadParams =  {Bucket : "terraform-webapp", Key: url, Body: ""};
-          uploadParams.Body = tf_context;
+    socket.on('terraform_distroy', (data) => {
+      logger.logSeperate({socket, msg : "Terraform Initialization"});
+      const access_key = data.access_key;
 
-          s3.upload(uploadParams, function (err, data) {
-              if (err) {
-                  console.log("Error", err);
-              } if (data) {
-                  console.log("Upload Success", data.Location);
-                  resolve();
-              }
-          });
-        }).then(() => {
-          let store_url = "./tf_files/" + params.api_key + "/" + params.filename
-          let downloadParams = {Bucket : "terraform-webapp", Key: ''};
-          downloadParams.Key = params.api_key + "/tfcode/main.tf";
-          s3.getObject(downloadParams, function (err, data) {
-              if (err) {
-                  console.log("Error", err);
-              } if (data) {
-                  try{
-                      !fs.existsSync("tf_files/" + params.api_key) && fs.mkdirSync("tf_files/" + params.api_key)
-                      fs.writeFileSync(store_url, data.Body.toString());
-                      console.log("Download complete", store_url);
-                  }catch(err){
-                      console.log("Error", err);
-                  }finally{
-                      
-                  }
-              }
-          });
-        }).then(() => {
-          const terraform_init = spawn('terraform', [`-chdir=${tf_file_path}`, 'init']);
-          //`-chdir=${tf_file_path}`
-          terraform_init.stdout.on('data', (data) => {
-            console.log(data.toString());
-            socket.emit('log_health', data.toString()); 
-          }); 
-          terraform_init.stderr.on('data', (data) => {
-            console.error(data.toString());
-          }); 
-          terraform_init.on('exit', (code) => {
-            if (code === 0) {
-              console.log('Terraform init succeeded');
-            } else {
-              console.error('Terraform init failed');
-            }
-          });
-        // }).then(() => {
-        //   const terraform_plan = spawn('terraform', [`-chdir=${tf_file_path}`, 'plan']);
-        //   //`-chdir=${tf_file_path}`
-        //   terraform_plan.stdout.on('data', (data) => {
-        //     console.log(data.toString());
-        //   }); 
-        //   terraform_plan.stderr.on('data', (data) => {
-        //     console.error(data.toString());
-        //   }); 
-        //   terraform_plan.on('exit', (code) => {
-        //     if (code === 0) {
-        //       console.log('Terraform plan succeeded');
-        //     } else {
-        //       console.error('Terraform plan failed');
-        //     }
-        //   });
-        // }).then(() => {
-        //   const terraform_plan = spawn('terraform', [`-chdir=${tf_file_path}`, 'apply', '-auto-approve']);
-        //   //`-chdir=${tf_file_path}`
-        //   terraform_plan.stdout.on('data', (data) => {
-        //     console.log(data.toString());
-        //   }); 
-        //   terraform_plan.stderr.on('data', (data) => {
-        //     console.error(data.toString());
-        //   }); 
-        //   terraform_plan.on('exit', (code) => {
-        //     if (code === 0) {
-        //       console.log('Terraform apply succeeded');
-        //     } else {
-        //       console.error('Terraform apply failed');
-        //     }
-        //   });
-        // }).then(() => {
-        //   const terraform_plan = spawn('terraform', [`-chdir=${tf_file_path}`, 'destroy', '-auto-approve']);
-        //   //`-chdir=${tf_file_path}`
-        //   terraform_plan.stdout.on('data', (data) => {
-        //     console.log(data.toString());
-        //   }); 
-        //   terraform_plan.stderr.on('data', (data) => {
-        //     console.error(data.toString());
-        //   }); 
-        //   terraform_plan.on('exit', (code) => {
-        //     if (code === 0) {
-        //       console.log('Terraform destroy succeeded');
-        //     } else {
-        //       console.error('Terraform destroy failed');
-        //     }
-        //   });
-        });
-      }
-      await terraformPipeExcution({api_key, tf_context, filename});
-    }); 
+      terraform.init({socket, path : access_key}); 
+    });
   }catch (e) {
-
-  }finally {
-
-  }
+    logger.logging(e);
+    console.error(e);
+  }finally {}
 });
 module.exports = app;
