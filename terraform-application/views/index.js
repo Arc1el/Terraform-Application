@@ -8,8 +8,20 @@ $(document).ready(function() {
     socket.on('log_health', function(data) {
         var textarea_str = $("#log-health").val();
         textarea_str += data;
-        $("#log-health").html(textarea_str); 
+        $("#log-health").html(textarea_str);
+        const top = $('#log-health').prop('scrollHeight');
+        $('#log-health').scrollTop(top); 
     });
+
+    socket.on('tf_log', function(data) {
+        console.log("tf_log : " + data);
+        var tf_div_data = $("#terraform-output").val();
+        tf_div_data += data;
+        $("#terraform-output").append("<p>" + tf_div_data + "</p><br>");
+        const top = $('#terraform-output').prop('scrollHeight');
+        $('#terraform-output').scrollTop(top); 
+    })
+
     document.querySelector('#health_check_form').addEventListener('submit', (event) => {
         event.preventDefault();
         socket.emit('health_check', {});
@@ -30,6 +42,24 @@ $(document).ready(function() {
         var access_key = $('#access_key').val();
         console.log(access_key);
         socket.emit('terraform_init', {access_key})
+    })
+    document.querySelector('#tf_plan_btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        var access_key = $('#access_key').val();
+        console.log(access_key);
+        socket.emit('terraform_plan', {access_key})
+    })
+    document.querySelector('#tf_apply_btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        var access_key = $('#access_key').val();
+        console.log(access_key);
+        socket.emit('terraform_apply', {access_key})
+    })
+    document.querySelector('#tf_destroy_btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        var access_key = $('#access_key').val();
+        console.log(access_key);
+        socket.emit('terraform_destroy', {access_key})
     })
 
     document.querySelector('#vpc-form').addEventListener('submit', (event) => {
