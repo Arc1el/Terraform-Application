@@ -95,7 +95,7 @@ app.io.on('connection', async (socket) => {
       const database_subnet_data  = data.database_subnet_data;
       const nat_gateway_data      = data.nat_gateway_data;
 
-      !fs.existsSync("./tf_files/" + access_key) && fs.mkdirSync("./tf_files/" + access_key);
+      !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key, {recursive: true});
       let vpc_tf_context = vpc.createVpc({title, vpc_cidr, public_subnet_data, private_subnet_data, database_subnet_data, nat_gateway_data})
       socket.emit('log_health', vpc_tf_context);
       s3.upload({access_key: access_key, filename: "vpc.tf", socket: socket, context: vpc_tf_context});
@@ -105,28 +105,28 @@ app.io.on('connection', async (socket) => {
     socket.on('terraform_init', (data) => {
       logger.logSeperate({socket, msg : "Terraform Initialization"});
       const access_key = data.access_key;
-      !fs.existsSync("./tf_files/" + access_key) && fs.mkdirSync("./tf_files/" + access_key);
+      !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key, {recursive: true});
       terraform.init({socket, path : access_key}); 
     });
 
     socket.on('terraform_plan', (data) => {
       logger.logSeperate({socket, msg : "Terraform Plan"});
       const access_key = data.access_key;
-      !fs.existsSync("./tf_files/" + access_key) && fs.mkdirSync("./tf_files/" + access_key);
+      !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key, {recursive: true});
       terraform.plan({socket, path : access_key}); 
     });
 
     socket.on('terraform_apply', (data) => {
       logger.logSeperate({socket, msg : "Terraform Apply"});
       const access_key = data.access_key;
-      !fs.existsSync("./tf_files/" + access_key) && fs.mkdirSync("./tf_files/" + access_key);
+      !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key, {recursive: true});
       terraform.apply({socket, path : access_key}); 
     });
 
     socket.on('terraform_destroy', (data) => {
       logger.logSeperate({socket, msg : "Terraform Destroy"});
       const access_key = data.access_key;
-      !fs.existsSync("./tf_files/" + access_key) && fs.mkdirSync("./tf_files/" + access_key);
+      !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key, {recursive: true});
       terraform.destroy({socket, path : access_key}); 
     });
 
