@@ -1,10 +1,10 @@
-var AWS = require('aws-sdk');
-var fs = require('fs');
+var AWS     = require('aws-sdk');
+var fs      = require('fs');
 
 AWS.config.update({region: 'ap-northeast-2'});
-const s3 = new AWS.S3({apiVersion: '2006-03-01'});
+const s3    = new AWS.S3({apiVersion: '2006-03-01'});
 
-exports.s3Upload = function(data) {
+exports.upload = function(data) {
     var context = data.context;
     const socket = data.socket;
     const filename = data.filename;
@@ -13,6 +13,7 @@ exports.s3Upload = function(data) {
     console.log("upload to s3", filename, access_key);
 
     new Promise(resolve => {
+        !fs.existsSync(access_key) && fs.mkdirSync(access_key);
         const url = access_key + "/tfcode/" + filename;
         let uploadParams =  {Bucket : "terraform-webapp", Key: url, Body: ""};
         uploadParams.Body = context;
@@ -44,10 +45,5 @@ exports.s3Upload = function(data) {
                     }
                 }
             });
-        }).then(() => {
-            socket.emit('log_health', context);
-            socket.emit('log_health', "\n==============================================\n");
-            socket.emit('log_health', `create ${filename} Successfully!!\n`);
-            socket.emit('log_health', "==============================================\n\n");
         })
 }
