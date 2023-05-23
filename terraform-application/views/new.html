@@ -1,0 +1,582 @@
+<!--
+=========================================================
+* Soft UI Dashboard Tailwind - v1.0.5
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-tailwind
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png" />
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+  <title>Smileshark Terraform Webapplication</title>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Nucleo Icons -->
+  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Main Styling -->
+  <link href="./assets/css/soft-ui-dashboard-tailwind.css?v=1.0.5" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script src="/new.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+  <!-- sidenav  -->
+  <aside
+    class="max-w-62.5 ease-nav-brand z-990 fixed inset-y-0 my-4 ml-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
+    <div class="h-19.5">
+      <i class="absolute top-0 right-0 hidden p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden"
+        sidenav-close></i>
+      <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700" href="javascript:;" target="_blank">
+        <img src="./images/ss_logo.png"
+          class="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-8" alt="main_logo" />
+      </a>
+    </div>
+
+    <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
+
+    <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
+      <ul class="flex flex-col pl-0 mb-0">
+        <li class="mt-0.5 w-full">
+          <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+            href="/">
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="mt-0.5 w-full">
+          <a class="py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors"
+            href="/new">
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">New Project</span>
+          </a>
+        </li>
+
+        <li class="mt-0.5 w-full">
+          <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+            href="./pages/billing.html">
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Details</span>
+          </a>
+        </li>
+        <li class="w-full mt-4">
+          <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
+        </li>
+      </ul>
+    </div>
+    <div class="mx-4">
+      <!-- load phantom colors for card after: -->
+      <p
+        class="invisible hidden text-gray-800 text-red-500 text-red-600 after:bg-gradient-to-tl after:from-gray-900 after:to-slate-800 after:from-blue-600 after:to-cyan-400 after:from-red-500 after:to-yellow-400 after:from-green-600 after:to-lime-400 after:from-red-600 after:to-rose-400 after:from-slate-600 after:to-slate-300 text-lime-500 text-cyan-500 text-slate-400 text-fuchsia-500">
+      </p>
+      <div
+        class="after:opacity-65 after:bg-gradient-to-tl after:from-slate-600 after:to-slate-300 relative flex min-w-0 flex-col items-center break-words rounded-2xl border-0 border-solid border-blue-900 bg-white bg-clip-border shadow-none after:absolute after:top-0 after:bottom-0 after:left-0 after:z-10 after:block after:h-full after:w-full after:rounded-2xl after:content-['']"
+        sidenav-card>
+        <div class="mb-7.5 absolute h-full w-full rounded-2xl bg-cover bg-center"
+          style="background-image: url('./assets/img/curved-images/white-curved.jpeg')"></div>
+        <!-- <div class="relative z-20 flex-auto w-full p-4 text-left text-white">
+            <div class="flex items-center justify-center w-8 h-8 mb-4 text-center bg-white bg-center rounded-lg icon shadow-soft-2xl">
+            <div class="transition-all duration-200 ease-nav-brand">
+            </div>
+          </div> -->
+      </div>
+      <!-- pro btn 
+        <a class="inline-block w-full px-6 py-3 my-4 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102" target="_blank" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro-tailwind?ref=sidebarfree">Upgrade to pro</a> -->
+    </div>
+  </aside>
+  <!-- end sidenav -->
+
+  <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
+    <!-- Navbar -->
+    <nav
+      class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start"
+      navbar-main navbar-scroll="true">
+      <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+        <nav>
+          <!-- breadcrumb -->
+          <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+            <li class="text-sm leading-normal">
+              <a class="opacity-50 text-slate-700" href="javascript:;">Pages</a>
+            </li>
+            <li
+              class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']"
+              aria-current="page">New Project</li>
+          </ol>
+          <h6 class="mb-0 font-bold capitalize">Select Services</h6>
+        </nav>
+
+        <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
+          <div class="flex items-center md:ml-auto md:pr-4">
+            <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
+              <span
+                class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+                <i class="fas fa-search"></i>
+              </span>
+              <input type="text"
+                class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                placeholder="Type here..." />
+            </div>
+          </div>
+          <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
+            <!-- online builder btn  -->
+            <!-- <li class="flex items-center">
+                <a class="inline-block px-8 py-2 mb-0 mr-4 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro border-fuchsia-500 ease-soft-in hover:scale-102 active:shadow-soft-xs text-fuchsia-500 hover:border-fuchsia-500 active:bg-fuchsia-500 active:hover:text-fuchsia-500 hover:text-fuchsia-500 tracking-tight-soft hover:bg-transparent hover:opacity-75 hover:shadow-none active:text-white active:hover:bg-transparent" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard&amp;_ga=2.76518741.1192788655.1647724933-1242940210.1644448053">Online Builder</a>
+              </li> -->
+            <li class="flex items-center">
+              <a href="/api/logout"
+                class="block px-0 py-2 text-sm font-semibold transition-all ease-nav-brand text-slate-500">
+                <i class="fa fa-user sm:mr-1"></i>
+                <span class="hidden sm:inline">Logout</span>
+              </a>
+            </li>
+            <li class="flex items-center pl-4 xl:hidden">
+              <a href="javascript:;" class="block p-0 text-sm transition-all ease-nav-brand text-slate-500"
+                sidenav-trigger>
+                <div class="w-4.5 overflow-hidden">
+                  <i class="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
+                  <i class="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
+                  <i class="ease-soft relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
+                </div>
+              </a>
+            </li>
+            <li class="flex items-center px-4 hidden">
+              <a href="javascript:;" class="p-0 text-sm transition-all ease-nav-brand text-slate-500">
+                <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
+                <!-- fixed-plugin-button-nav  -->
+              </a>
+            </li>
+
+            <!-- notifications -->
+
+            <li class="relative flex items-center pr-2 hidden">
+              <p class="hidden transform-dropdown-show"></p>
+              <a href="javascript:;" class="block p-0 text-sm transition-all ease-nav-brand text-slate-500"
+                dropdown-trigger aria-expanded="false">
+                <i class="cursor-pointer fa fa-bell"></i>
+              </a>
+
+              <ul dropdown-menu
+                class="text-sm transform-dropdown before:font-awesome before:leading-default before:duration-350 before:ease-soft lg:shadow-soft-3xl duration-250 min-w-44 before:sm:right-7.5 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
+                <!-- add show class on dropdown open js -->
+                <li class="relative mb-2">
+                  <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors"
+                    href="javascript:;">
+                    <div class="flex py-1">
+                      <div class="my-auto">
+                        <img src="./assets/img/team-2.jpg"
+                          class="inline-flex items-center justify-center mr-4 text-sm text-white h-9 w-9 max-w-none rounded-xl" />
+                      </div>
+                      <div class="flex flex-col justify-center">
+                        <h6 class="mb-1 text-sm font-normal leading-normal"><span class="font-semibold">New
+                            message</span> from Laur</h6>
+                        <p class="mb-0 text-xs leading-tight text-slate-400">
+                          <i class="mr-1 fa fa-clock"></i>
+                          13 minutes ago
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+
+                <li class="relative mb-2">
+                  <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700"
+                    href="javascript:;">
+                    <div class="flex py-1">
+                      <div class="my-auto">
+                        <img src="./assets/img/small-logos/logo-spotify.svg"
+                          class="inline-flex items-center justify-center mr-4 text-sm text-white bg-gradient-to-tl from-gray-900 to-slate-800 h-9 w-9 max-w-none rounded-xl" />
+                      </div>
+                      <div class="flex flex-col justify-center">
+                        <h6 class="mb-1 text-sm font-normal leading-normal"><span class="font-semibold">New album</span>
+                          by Travis Scott</h6>
+                        <p class="mb-0 text-xs leading-tight text-slate-400">
+                          <i class="mr-1 fa fa-clock"></i>
+                          1 day
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+
+                <li class="relative">
+                  <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700"
+                    href="javascript:;">
+                    <div class="flex py-1">
+                      <div
+                        class="inline-flex items-center justify-center my-auto mr-4 text-sm text-white transition-all duration-200 ease-nav-brand bg-gradient-to-tl from-slate-600 to-slate-300 h-9 w-9 rounded-xl">
+                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
+                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <title>credit-card</title>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(453.000000, 454.000000)">
+                                  <path class="color-background"
+                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
+                                    opacity="0.593633743"></path>
+                                  <path class="color-background"
+                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
+                                  </path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="flex flex-col justify-center">
+                        <h6 class="mb-1 text-sm font-normal leading-normal">Payment successfully completed</h6>
+                        <p class="mb-0 text-xs leading-tight text-slate-400">
+                          <i class="mr-1 fa fa-clock"></i>
+                          2 days
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- end Navbar -->
+
+    <!-- cards -->
+    <div class="w-full px-6 py-6 mx-auto">
+      <div>
+        <h2>Select Services</h2>
+      </div>
+      <div class="flex flex-wrap mt-6 -mx-3">
+        <div class="w-full px-3 mb-6 lg:mb-0 lg:w-full lg:flex-none ">
+          <div
+            class="border-black/12.5 shadow-soft-xl relative flex h-10 marker:flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4 overflow-hidden">
+            <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+              <thead class="align-bottom">
+                <tr>
+                  <th
+                    class="px-6 py-3 font-bold tracking-normal text-left uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
+                    서비스</th>
+                  <th
+                    class="px-6 py-3 font-bold tracking-normal text-center uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
+                    설명</th>
+                  <th
+                    class="px-6 py-3 font-bold tracking-normal text-center uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
+                    사용 여부</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <div class="flex px-2 py-1">
+                      <div class="flex flex-col justify-center">
+                        <h6 class="mb-0 text-sm leading-normal">Provider</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <span class="text-xs font-semibold leading-tight">Provider를 정의합니다 </span>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <span class="float-right">
+                      <input
+                        class="rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right"
+                        type="checkbox" name="providers_checkbox" checked disabled />
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <div class="flex px-2 py-1">
+                      <div class="flex flex-col justify-center">
+                        <h6 class="mb-0 text-sm leading-normal">VPC</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <span class="text-xs font-semibold leading-tight">VPC를 정의합니다 </span>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <span class="float-right">
+                      <input
+                        class="rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right"
+                        type="checkbox" name="vpc_checkbox" checked disabled />
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <div class="flex px-2 py-1">
+                      <div class="flex flex-col justify-center">
+                        <h6 class="mb-0 text-sm leading-normal">EC2</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <span class="text-xs font-semibold leading-tight">EC2를 정의합니다 (서브넷 그룹 포함) </span>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <span class="float-right">
+                      <input
+                        class="rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right"
+                        type="checkbox" name="ec2_checkbox" />
+                    </span>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap mt-6 -mx-3 ">
+        <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
+          <div
+            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4"
+            name="providers_div">
+            <h4>Providers</h4>
+            <table>
+              <tr>
+                <td>
+                  <label for="Api-Key">Access Key</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text"
+                    class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    placeholder="AKIA3BSYMHURZFXXXXXX"
+                    id="access_key"/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="Secret_key">Secret Key</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text"
+                    class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    placeholder="ZpLFVl8HI0N7lEJmdC5VOOL9waiwygXXXXXXXXXX"
+                    id="secret_key" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="Api-Key">Region</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text"
+                    class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    placeholder="ap-northeast-2"
+                    id="region"/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="Api-Key">Title</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text"
+                    class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    placeholder="MyProjectTitle"
+                    id="title"/>
+                </td>
+              <tr>
+              </tr>
+                <td>
+                  <input type="button" id="create_providers_btn"
+                    class="float-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    value="Save"/>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
+          <div
+            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" name="vpc_div">
+            <h4>VPC</h4>
+            <table>
+              <tr>
+                <td>
+                  <label for="cidr"><b>VPC CIDR</b></label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    placeholder="10.0.0.0/16" type="text" name="cidr" id="vpc_cidr"><br><br>
+                </td>
+              </tr>
+            </table>
+            <table>
+              <tr>
+                <td>
+                  <p style="display: inline-block;"><b>Public Subnets&nbsp;&nbsp;</b></p>
+                  <select name="pub" id="select_pub_subnets">
+                    <option value=0 selected>0</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <table id="table_pub_subnets">
+              <tr id="pub_subnet_tr">
+              </tr>
+            </table><br>
+            <table>
+              <tr>
+                <td>
+                  <p style="display: inline-block;"><b>Private Subnets&nbsp;&nbsp;</b></p>
+                  <select name="priv" id="select_priv_subnets">
+                    <option value=0 selected>0</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <table id="table_priv_subnets">
+              <tr id="priv_subnet_tr">
+              </tr>
+            </table><br>
+            <table>
+              <tr>
+                <td>
+                  <p style="display: inline-block;"><b>Database Subnets&nbsp;&nbsp;</b></p>
+                  <select name="priv" id="select_db_subnets">
+                    <option value=0 selected>0</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <table id="table_db_subnets">
+              <tr id="db_subnet_tr">
+              </tr>
+            </table><br>
+            <table>
+              <tr>
+                  <td>
+                      <p style="display: inline-block;"><b>Nat Gateway&nbsp;&nbsp;</b></p>
+                      <select name="select_nat_gateway" id="select_nat_gateway">
+                          <option value=0 selected>0</option>
+                          <option value=1 >1</option>
+                          <option value=2 >2</option>
+                          <option value=3 >3</option>
+                          <option value=4 >4</option>
+                          <option value=5 >5</option>
+                      </select>
+                  </td>
+              </tr>
+            </table>
+            <table id = "table_nat_gateways">
+              <tr id="nat_gateway_tr">
+              </tr>
+            </table>
+            <table>
+              <td>
+                <input type="button" id="create_vpc_btn"
+                  class="float-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                  value="Save"/>
+              </td>
+            </table>
+          </div>
+        </div>
+        <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
+          <div
+            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4 visible"
+            name="ec2_div" id="ec2_div" >
+            <h4>EC2</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div fixed-plugin>
+    <a fixed-plugin-button
+      class="bottom-7.5 right-7.5 text-xl z-990 shadow-soft-lg rounded-sm fixed bg-white px-4 py-2 text-slate-700">
+      <i>
+        <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" width="30px"
+          height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="m21 4c0-.478-.379-1-1-1h-16c-.62 0-1 .519-1 1v16c0 .621.52 1 1 1h16c.478 0 1-.379 1-1zm-16.5.5h15v15h-15zm2.818 5.865 2.635 1.622-2.641 1.645c-.207.146-.318.378-.318.613 0 .601.682.966 1.182.613l3.511-2.257c.199-.141.318-.369.318-.614 0-.244-.119-.472-.318-.613l-3.505-2.235c-.498-.35-1.182.009-1.182.612 0 .236.111.468.318.614zm9.678 3.873c0-.414-.336-.75-.75-.75h-3.5c-.413 0-.75.336-.75.75s.337.75.75.75h3.5c.414 0 .75-.336.75-.75z"
+            fill-rule="nonzero" />
+        </svg>
+      </i>
+    </a>
+    <!-- -right-90 in loc de 0-->
+    <div fixed-plugin-card
+      class="z-sticky shadow-soft-3xl w-90 ease-soft -right-90 fixed top-0 left-auto flex h-full min-w-0 flex-col break-words rounded-none border-0 bg-white bg-clip-border px-2.5 duration-200">
+      <div class="px-6 pt-4 pb-0 mb-0 bg-white border-b-0">
+        <div class="float-left">
+          <h5 class="mt-4 mb-0">
+            <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" width="30px"
+              height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="m21 4c0-.478-.379-1-1-1h-16c-.62 0-1 .519-1 1v16c0 .621.52 1 1 1h16c.478 0 1-.379 1-1zm-16.5.5h15v15h-15zm2.818 5.865 2.635 1.622-2.641 1.645c-.207.146-.318.378-.318.613 0 .601.682.966 1.182.613l3.511-2.257c.199-.141.318-.369.318-.614 0-.244-.119-.472-.318-.613l-3.505-2.235c-.498-.35-1.182.009-1.182.612 0 .236.111.468.318.614zm9.678 3.873c0-.414-.336-.75-.75-.75h-3.5c-.413 0-.75.336-.75.75s.337.75.75.75h3.5c.414 0 .75-.336.75-.75z"
+                fill-rule="nonzero" />
+            </svg>
+            Server Console
+          </h5>
+        </div>
+        <div class="float-right mt-6">
+          <button fixed-plugin-close-button
+            class="inline-block p-0 mb-4 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer hover:scale-102 leading-pro ease-soft-in tracking-tight-soft bg-150 bg-x-25 active:opacity-85 text-slate-700">
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
+        <!-- End Toggle Button -->
+      </div>
+      <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
+      <div class="flex-auto p-6 pt-0 sm:pt-4">
+        <!-- Sidebar Backgrounds -->
+        <div>
+        </div>
+        <!-- Sidenav Type -->
+
+      </div>
+    </div>
+  </div>
+</body>
+<!-- plugin for charts  -->
+<script src="./assets/js/plugins/chartjs.min.js" async></script>
+<!-- plugin for scrollbar  -->
+<script src="./assets/js/plugins/perfect-scrollbar.min.js" async></script>
+<!-- github button -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- main script file  -->
+<script src="./assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5" async></script>
+
+</html>

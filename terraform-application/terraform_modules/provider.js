@@ -4,10 +4,10 @@ exports.createProviders = function(data) {
     const region        = data.region;
     const access_key    = data.access_key;
     const secret_key    = data.secret_key;
-    const project       = data.project;
-    const arn           = data.arn;
+    const title       = data.title;
+    // const arn           = data.arn;
     
-    !fs.existsSync(access_key) && fs.mkdirSync(access_key);
+    // !fs.existsSync(access_key) && fs.mkdirSync(access_key);
 
     try{
         var providers_code = `terraform {
@@ -22,9 +22,6 @@ provider "aws" { # AWS Provider
     region     = "${region}"
     access_key = "${access_key}"
     secret_key = "${secret_key}"
-    assume_role {
-        role_arn = "${arn}"
-    }
 }
 provider "aws" {   
     alias  = "virginia" 

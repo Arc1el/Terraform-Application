@@ -6,15 +6,15 @@ const s3    = new AWS.S3({apiVersion: '2006-03-01'});
 
 exports.upload = function(data) {
     var context = data.context;
-    const socket = data.socket;
     const filename = data.filename;
     const access_key = data.access_key;
+    const title = data.title;
 
     console.log("upload to s3", filename, access_key);
 
     new Promise(resolve => {
-        !fs.existsSync(access_key) && fs.mkdirSync(access_key);
-        const url = access_key + "/tfcode/" + filename;
+        !fs.existsSync(access_key + "/" + title + "/tfcode/") && fs.mkdirSync(access_key + "/" + title + "/tfcode/", {recursive: true});
+        const url = access_key + "/" + title + "/tfcode/" + filename;
         let uploadParams =  {Bucket : "terraform-webapp", Key: url, Body: ""};
         uploadParams.Body = context;
 
@@ -28,15 +28,15 @@ exports.upload = function(data) {
         });
 
         }).then(() => {
-            let store_url = "./tf_files/" + access_key + "/" + filename;
+            let store_url = "./tf_files/" + access_key + "/" + title + "/" + filename;
             let downloadParams = {Bucket : "terraform-webapp", Key: ''};
-            downloadParams.Key = access_key + "/tfcode/" + filename;
+            downloadParams.Key = access_key + "/" + title + "/tfcode/" + filename;
             s3.getObject(downloadParams, function (err, data) {
                 if (err) {
                     console.log("Error", err);
                 } if (data) {
                     try{
-                        !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key)
+                        // !fs.existsSync("tf_files/" + access_key) && fs.mkdirSync("tf_files/" + access_key)
                         fs.writeFileSync(store_url, data.Body.toString());
                         console.log("Download complete", store_url);
                     }catch(err){
@@ -45,5 +45,5 @@ exports.upload = function(data) {
                     }
                 }
             });
-        })
+        });
 }

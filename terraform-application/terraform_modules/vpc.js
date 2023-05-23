@@ -1,5 +1,4 @@
 exports.createVpc = function(data) {
-    const access_key    = data.access_key;
     const title         = data.title;
     const vpc_cidr      = `"${data.vpc_cidr}"`;
     const pub           = data.public_subnet_data;

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>시각화 맵</title>
+  <style>
+    .node {
+      fill: #fff;
+      stroke: #000;
+      stroke-width: 2px;
+    }
+
+    .groupA {
+      fill: #FFA07A;
+    }
+
+    .groupB {
+      fill: #20B2AA;
+    }
+
+    .groupC {
+      fill: #1E90FF;
+    }
+
+    .link {
+      stroke: #808080;
+      stroke-width: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div id="visualization"></div>
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script>
+    let data = {
+      nodes: [
+        { id: 1, group: "A" },
+        { id: 2, group: "A" },
+        { id: 3, group: "A" },
+        { id: 4, group: "B" },
+        { id: 5, group: "B" },
+        { id: 6, group: "C" },
+        { id: 7, group: "C" },
+        { id: 8, group: "C" },
+      ],
+      links: [
+        { source: 1, target: 4 },
+        { source: 2, target: 4 },
+        { source: 3, target: 4 },
+        { source: 4, target: 5 },
+        { source: 6, target: 7 },
+        { source: 7, target: 8 },
+      ],
+    };
+
+    let width = 800;
+    let height = 400;
+    let svg = d3
+      .select("#visualization")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    let color = d3.scaleOrdinal().domain(["A", "B", "C"]).range(["#FFA07A", "#20B2AA", "#1E90FF"]);
+
+    let simulation = d3
+      .forceSimulation(data.nodes)
+      .force("link", d3.forceLink().id(d => d.id))
+      .force("charge", d3.forceManyBody().strength(-100))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+    let links = svg
+      .selectAll("line")
+      .data(data.links)
+      .enter()
+      .append("line")
+      .attr("class", "link");
+
+    let nodes = svg
+      .selectAll("rect")
+      .data(data.nodes)
+      .enter()
+      .append("rect")
+      .attr("class", d => "node " + "group" + d.group)
+      .attr("width", 50)
+      .attr("height", 50);
+
+    nodes.on("mouseover", function (d) {
+      console.log(d.id);
+    });
+
+    simulation.on("tick", function () {
+      links.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+      nodes.attr("x", d => d.x - 25).attr("y", d => d.y - 25);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="output.css" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/cognito/aws-cognito-sdk.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="js/cognito/amazon-cognito-identity.min.js"></script>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
+  <script src="./login.js"></script>
+
+</head>
+<body>
+  <div class="flex h-screen bg-blue-300	">
+    <div class="m-auto max-w-lg">
+      <img src="./images/ss_logo.png" class=""/>
+      <h1 class="text-right text-base font-bold text-sky-700 sm:text-base">
+        Terraform Webapp
+      </h1>
+  
+      <p class="mx-auto mt-4 max-w-md text-center text-gray-500">
+        
+      </p>
+  
+      <form
+        action="/login"
+        class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 overflow-hidden bg-blue-100 "
+      >
+        <p class="text-center text-lg font-medium text-sky-700">로그인 후 진행해주세요</p>
+  
+        <div class="">
+          <label for="cognitoId" class="sr-only">Id</label>
+  
+          <div class="relative">
+            <input
+              type="text"
+              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              id="cognitoId"
+              placeholder="아이디를 입력하세요"
+            />
+          </div>
+        </div>
+  
+        <div class>
+          <label for="cognitoPw" class="sr-only">Password</label>
+  
+          <div class="relative">
+            <input
+              type="password"
+              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              id="cognitoPw"
+              placeholder="패스워드를 입력하세요"
+            />
+          </div>
+        </div>
+  
+        <button
+          type="submit"
+          class="block w-full rounded-lg bg-sky-600 px-5 py-3 text-sm font-medium text-white"
+          id="loginBtn"
+        >
+          로그인
+        </button>
+  
+        <p class="text-center text-sm text-gray-500">
+          계정이 없다면?
+          <a class="underline" href="./register">계정 생성하기</a>를 진행하고 관리자에게 알려주세요
+        </p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
