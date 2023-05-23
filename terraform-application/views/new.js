@@ -1,3 +1,8 @@
+// $(document).off("click", '[id^="delete_sg_btn_"]').on("click", '[id^="delete_sg_btn_"]', function(event) {
+//     console.log("Asdf");
+//     console.log($(this).attr("id"));
+// });
+
 $(document).ready(function() {
     const socket = io();
     var table_pub_subnets = $("#pub_subnet_tr");
@@ -15,6 +20,8 @@ $(document).ready(function() {
         }
     });
 
+    document.
+
     document.querySelector("#select_pub_subnets").addEventListener("change", function(){
         console.log("select_pub_subnets");
         console.log("ok"); 
@@ -26,7 +33,7 @@ $(document).ready(function() {
             table_pub_subnets.append(`
             <tr>
                 <td>
-                    Public Subnet [${i}]&nbsp;&nbsp;&nbsp;
+                    Public Subnet [${i}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td>
                     <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" name ="az" id="select_pub_az_${i}">
@@ -59,7 +66,7 @@ $(document).ready(function() {
             table_priv_subnets.append(`
             <tr>
                 <td>
-                    Private Subnet [${i}]&nbsp;&nbsp;&nbsp;
+                    Private Subnet [${i}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td>
                     <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" name ="az" id="select_priv_az_${i}">
@@ -132,7 +139,7 @@ $(document).ready(function() {
             table_nat_gateways.append(`
             <tr>
                 <td>
-                    Nat Gateway [${i}]&nbsp;&nbsp;&nbsp;
+                    Nat Gateway [${i}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <td>
                 <td>
                     <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" id = "select_nat_gateway_subnets_${i}">`
@@ -162,6 +169,118 @@ $(document).ready(function() {
         $('#terraform-output').scrollTop(top); 
     })
 
+    document.querySelector("#add_sg_btn").addEventListener("click", (event) => {
+        $('[id^="delete_sg_btn_"]').on("click", (event) => {
+            console.log("Asdf");
+            console.log($(event.currentTarget).attr("id")); 
+        });
+
+        console.log("add_sg_")
+        counter = Number($("#sg_count").text());
+        counter += 1;
+        $("#sg_count").text(counter); 
+        console.log(counter);
+        event.preventDefault();
+        context = `
+        <br><div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" >
+                <table>
+                    <tr>
+                        <td>
+                            <b>Security Group Name</b>
+                        </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                        placeholder="My Security Group" type="text" id="sg_name_${counter}">
+                    </td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td>
+                      <b>Security Group Description</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                        placeholder="SG Description" type="text" id="sg_description_${counter}">
+                    </td>
+                  </tr>
+                </table> 
+                <table>
+                  <tr>
+                    <td>
+                      <b>Ingress</b><span class="text-xs">&nbsp;(비워둘 시 생성하지 않음)</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="Description" type="text" id="ingress_description_${counter}" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="ingress_from_${counter}" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="ingress_to_${counter}" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="ingress_to_${counter}" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_${counter}" />
+                      <input type="button"
+                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      value="+" id="add_ingress_${counter}" onclick='
+                      (function(element) { var row = element.parentNode.parentNode; var table = row.parentNode; var index = Array.prototype.indexOf.call(table.children, row); if (index === 1) { table.removeChild(row); } })(this);
+                      ';/>
+                      <input type="button"
+                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      value="-" id="del_ingress_${counter}" onclick='
+                      (function(element) { var row = element.parentNode.parentNode; var table = row.parentNode; var index = Array.prototype.indexOf.call(table.children, row); if (index === 1) { table.removeChild(row); } })(this);
+                      ';/>
+                    </td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td>
+                      <b>Egress</b><span class="text-xs">&nbsp;(비워둘 시 생성하지 않음)</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="Description" type="text" id="egress_description_${counter}" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="egress_from_${counter}" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="egress_to_${counter}" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="egress_to_${counter}" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_${counter}" />
+                      <input type="button"
+                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      value="+" id="add_egress_btn_${counter}"/>
+                    </td>
+                  </tr>
+                </table> 
+              </div>
+        `
+        $("#sg_div").append(context);
+
+    });
 
     // document.querySelector('#health_check_form').addEventListener('submit', (event) => {
     //     event.preventDefault();

@@ -50,9 +50,7 @@
           class="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-8" alt="main_logo" />
       </a>
     </div>
-
     <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
-
     <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
       <ul class="flex flex-col pl-0 mb-0">
         <li class="mt-0.5 w-full">
@@ -256,9 +254,13 @@
       </div>
     </nav>
 
-    <!-- end Navbar -->
+    <!-- 본문시작 -->
+    <!-- 본문시작 -->
+    <!-- 본문시작 -->
+    <!-- 본문시작 -->
+    <!-- 본문시작 -->
+    <!-- 본문시작 -->
 
-    <!-- cards -->
     <div class="w-full px-6 py-6 mx-auto">
       <div>
         <h2>Select Services</h2>
@@ -324,12 +326,31 @@
                   <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
                     <div class="flex px-2 py-1">
                       <div class="flex flex-col justify-center">
+                        <h6 class="mb-0 text-sm leading-normal">Security Groups</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <span class="text-xs font-semibold leading-tight">시큐리티 그룹을 정의합니다 </span>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <span class="float-right">
+                      <input
+                        class="rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right"
+                        type="checkbox" name="ec2_checkbox" />
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                    <div class="flex px-2 py-1">
+                      <div class="flex flex-col justify-center">
                         <h6 class="mb-0 text-sm leading-normal">EC2</h6>
                       </div>
                     </div>
                   </td>
                   <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="text-xs font-semibold leading-tight">EC2를 정의합니다 (서브넷 그룹 포함) </span>
+                    <span class="text-xs font-semibold leading-tight">EC2 인스턴스를 정의합니다 </span>
                   </td>
                   <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
                     <span class="float-right">
@@ -345,6 +366,12 @@
           </div>
         </div>
       </div>
+      <!-- Providers 시작 -->
+      <!-- Providers 시작 -->
+      <!-- Providers 시작 -->
+      <!-- Providers 시작 -->
+      <!-- Providers 시작 -->
+      
       <div class="flex flex-wrap mt-6 -mx-3 ">
         <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
           <div
@@ -354,7 +381,7 @@
             <table>
               <tr>
                 <td>
-                  <label for="Api-Key">Access Key</label>
+                  <label for="Api-Key"><b>Access Key</b></label>
                 </td>
               </tr>
               <tr>
@@ -367,7 +394,7 @@
               </tr>
               <tr>
                 <td>
-                  <label for="Secret_key">Secret Key</label>
+                  <label for="Secret_key"><b>Secret Key</b></label>
                 </td>
               </tr>
               <tr>
@@ -380,7 +407,7 @@
               </tr>
               <tr>
                 <td>
-                  <label for="Api-Key">Region</label>
+                  <label for="Api-Key"><b>Region</b></label>
                 </td>
               </tr>
               <tr>
@@ -393,7 +420,7 @@
               </tr>
               <tr>
                 <td>
-                  <label for="Api-Key">Title</label>
+                  <label for="Api-Key"><b>Title</b></label>
                 </td>
               </tr>
               <tr>
@@ -414,6 +441,11 @@
             </table>
           </div>
         </div>
+        <!-- VPC 시작 -->
+        <!-- VPC 시작 -->
+        <!-- VPC 시작 -->
+        <!-- VPC 시작 -->
+        <!-- VPC 시작 -->
         <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
           <div
             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" name="vpc_div">
@@ -428,7 +460,7 @@
                 <td>
                   <input
                     class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                    placeholder="10.0.0.0/16" type="text" name="cidr" id="vpc_cidr"><br><br>
+                    placeholder="10.0.0.0/16" type="text" name="cidr" id="vpc_cidr">
                 </td>
               </tr>
             </table>
@@ -514,11 +546,226 @@
             </table>
           </div>
         </div>
+        <!-- Security Groups 시작 -->
+        <!-- Security Groups 시작 -->
+        <!-- Security Groups 시작 -->
+        <!-- Security Groups 시작 -->
+        <!-- Security Groups 시작 -->
+        <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
+          <div class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4">
+            <h4>Security Groups</h4>
+            <div id="sg_div" class="relative flex h-full min-w-0 flex-col break-words"> 
+              <div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" >
+                <table>
+                  <tr>
+                    <td>
+                      <b>Security Group Name</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                        placeholder="My Security Group" type="text" id="sg_name_0">
+                    </td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td>
+                      <b>Security Group Description</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                        placeholder="SG Description" type="text" id="sg_description_0">
+                    </td>
+                  </tr>
+                </table> 
+                <table  id="ingress_table_0">
+                  <tr>
+                    <td>
+                      <b>Ingress</b>&nbsp;&nbsp;&nbsp;<select id="select_sg_ingress_0">
+                        <option value=0 >0</option>
+                        <option value=1 selected>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="Description" type="text" id="ingress_description_0" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="ingress_from_0" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="ingress_to_0" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="ingress_to_0" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0" />
+                    </td>
+                  </tr>
+                </table>
+                <table id="sg_egress_table_0">
+                  <tr>
+                    <td>
+                      <b>Egress</b>&nbsp;&nbsp;&nbsp;
+                      <select name="priv" id="select_sg_egress_0">
+                        <option value=0>0</option>
+                        <option value=1 selected>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="Description" type="text" id="egress_description_0" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="egress_from_0" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="egress_to_0" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="egress_to_0" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0" />
+                    </td>
+                  </tr>
+                </table> 
+              </div>
+            </div>
+            <br>
+            <div class="relative flex h-full min-w-0 flex-col break-words">
+              <table>
+                <td>
+                  <input type="button" id="create_vpc_btn"
+                    class="float-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    value="Save"/>
+                  <p style="display: none" id="sg_count">0</p>
+                  <input type="button" id="add_sg_btn"
+                    class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    value="보안그룹 추가"/> 
+                </td>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- EC2 시작 -->
+        <!-- EC2 시작 -->
+        <!-- EC2 시작 -->
+        <!-- EC2 시작 -->
+        <!-- EC2 시작 -->
         <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
           <div
-            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4 visible"
-            name="ec2_div" id="ec2_div" >
+            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" name="vpc_div">
             <h4>EC2</h4>
+            <div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4"" >
+              <table>
+                <tr>
+                  <td>
+                    <b>EC2 Instance Name</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input
+                      class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="MY Instance " type="text" name="cidr" id="ec2_instance_name">
+                  </td>
+                </tr>
+              </table> 
+              <table>
+                <tr>
+                  <td>
+                    <b>AMI</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <select id="ec2_select_ami" class="text-left min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" >
+                      <option value = ami-04cebc8d6c4f297a3 selected>Ubuntu, 22.04 LTS, amd64</option>
+                      <option value = ami-08faf5d73df49da41>Windows Server 2022 Base, x86</option>
+                  </select>&nbsp;&nbsp;&nbsp;
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <tr>
+                  <td>
+                    <b>Instance Type</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input
+                    class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    placeholder="t3.small " type="text" name="cidr" id="ec2_instance_type" />
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <tr>
+                  <td>
+                    <b>Subnet</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <select id="ec2_select_ami" class="text-left min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" >
+                      <option value = 0 selected>서브넷을 먼저 설정해 주세요</option>
+                    </select>
+                    <input type="button" id="create_vpc_btn"
+                    class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    value="새로고침"/> 
+                  </td>
+                </tr>
+              </table> 
+              <table>
+                <tr>
+                  <td>
+                    <b>Security Groups</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <select id="ec2_select_ami" class="text-left min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" >
+                      <option value = 0 selected>보안그룹을 먼저 설정해주세요</option>
+                    </select>
+                    <input type="button" id="create_vpc_btn"
+                    class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    value="새로고침"/> 
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <br>
+            <table>
+              <td>
+                <input type="button" id="create_vpc_btn"
+                  class="float-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                  value="Save"/>
+                <input type="button" id="create_vpc_btn"
+                  class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                  value="인스턴스 추가"/> 
+              </td>
+            </table>
           </div>
         </div>
       </div>
