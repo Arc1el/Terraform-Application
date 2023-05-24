@@ -587,32 +587,64 @@
                 <table  id="ingress_table_0">
                   <tr>
                     <td>
-                      <b>Ingress</b>&nbsp;&nbsp;&nbsp;<select id="select_sg_ingress_0">
-                        <option value=0 >0</option>
-                        <option value=1 selected>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
-                        <option value=4>4</option>
-                      </select>
+                      <b>Ingress</b>&nbsp;&nbsp;&nbsp;
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="Description" type="text" id="ingress_description_0" />
+                      placeholder="비워 둘 시 생성안됨" type="text" id="ingress_description_0_0" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="ingress_from_0_0" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="ingress_to_0_0" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="ingress_to_0_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="From" type="text" id="ingress_from_0" />
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0_0" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="To" type="text" id="ingress_to_0" />
+                      placeholder="Description" type="text" id="ingress_description_0_1" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="ingress_from_0_1" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="ingress_to_0_1" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="ingress_to_0_1" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="TCP" type="text" id="ingress_to_0" />
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0_1" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0" />
+                      placeholder="Description" type="text" id="ingress_description_0_2" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="ingress_from_0_2" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="ingress_to_0_2" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="ingress_to_0_2" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0_2" />
                     </td>
                   </tr>
                 </table>
@@ -620,32 +652,63 @@
                   <tr>
                     <td>
                       <b>Egress</b>&nbsp;&nbsp;&nbsp;
-                      <select name="priv" id="select_sg_egress_0">
-                        <option value=0>0</option>
-                        <option value=1 selected>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
-                        <option value=4>4</option>
-                      </select>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="Description" type="text" id="egress_description_0" />
+                      placeholder="비워 둘 시 생성안됨" type="text" id="egress_description_0_0" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="egress_from_0_0" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="egress_to_0_0" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="egress_to_0_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="From" type="text" id="egress_from_0" />
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0_0" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="To" type="text" id="egress_to_0" />
+                      placeholder="Description" type="text" id="egress_description_0_1" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="egress_from_0_1" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="egress_to_0_1" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="egress_to_0_1" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="TCP" type="text" id="egress_to_0" />
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0_1" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0" />
+                      placeholder="Description" type="text" id="egress_description_0_2" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="From" type="text" id="egress_from_0_2" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="To" type="text" id="egress_to_0_2" />
+                      <input
+                      class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="TCP" type="text" id="egress_to_0_2" />
+                      <input
+                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0_2" />
                     </td>
                   </tr>
                 </table> 
@@ -658,7 +721,6 @@
                   <input type="button" id="create_vpc_btn"
                     class="float-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
                     value="Save"/>
-                  <p style="display: none" id="sg_count">0</p>
                   <input type="button" id="add_sg_btn"
                     class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
                     value="보안그룹 추가"/> 
@@ -690,8 +752,6 @@
                       placeholder="MY Instance " type="text" name="cidr" id="ec2_instance_name">
                   </td>
                 </tr>
-              </table> 
-              <table>
                 <tr>
                   <td>
                     <b>AMI</b>
@@ -705,8 +765,6 @@
                   </select>&nbsp;&nbsp;&nbsp;
                   </td>
                 </tr>
-              </table>
-              <table>
                 <tr>
                   <td>
                     <b>Instance Type</b>
@@ -719,8 +777,6 @@
                     placeholder="t3.small " type="text" name="cidr" id="ec2_instance_type" />
                   </td>
                 </tr>
-              </table>
-              <table>
                 <tr>
                   <td>
                     <b>Subnet</b>
@@ -736,8 +792,6 @@
                     value="새로고침"/> 
                   </td>
                 </tr>
-              </table> 
-              <table>
                 <tr>
                   <td>
                     <b>Security Groups</b>

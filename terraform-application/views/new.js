@@ -20,8 +20,6 @@ $(document).ready(function() {
         }
     });
 
-    document.
-
     document.querySelector("#select_pub_subnets").addEventListener("change", function(){
         console.log("select_pub_subnets");
         console.log("ok"); 
@@ -139,7 +137,7 @@ $(document).ready(function() {
             table_nat_gateways.append(`
             <tr>
                 <td>
-                    Nat Gateway [${i}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Nat Gateway [${i}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <td>
                 <td>
                     <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" id = "select_nat_gateway_subnets_${i}">`
@@ -169,6 +167,35 @@ $(document).ready(function() {
         $('#terraform-output').scrollTop(top); 
     })
 
+    document.querySelector("#select_nat_gateway").addEventListener("change", function(){
+      table_nat_gateways.html("");
+      let len     = $(this).val(); 
+      let pub_len = $("#select_pub_subnets").val();
+      for (var i = 0; i < len; i++) {
+          opt = "";
+          for (var j = 0; j <pub_len; j++) {
+              opt +=`<option value="${j}">Public_Subnet_${j}</option>`
+          };
+          console.log("opt : ", opt);
+          if (opt === "") {
+              opt = `<option value=0>퍼블릭 서브넷을 먼저 선택해주세요</`
+          }
+          table_nat_gateways.append(`
+          <tr>
+              <td>
+                  Nat Gateway [${i}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <td>
+              <td>
+                  <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" id = "select_nat_gateway_subnets_${i}">`
+                  + opt +
+                  `</select>
+              </td> 
+          </tr>
+          `);
+      }
+    });
+
+
     document.querySelector("#add_sg_btn").addEventListener("click", (event) => {
         $('[id^="delete_sg_btn_"]').on("click", (event) => {
             console.log("Asdf");
@@ -182,18 +209,20 @@ $(document).ready(function() {
         console.log(counter);
         event.preventDefault();
         context = `
-        <br><div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" >
+        <br>
+            <div id="sg_div" class="relative flex h-full min-w-0 flex-col break-words"> 
+              <div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" >
                 <table>
-                    <tr>
-                        <td>
-                            <b>Security Group Name</b>
-                        </td>
+                  <tr>
+                    <td>
+                      <b>Security Group Name</b>
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <input
                         class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                        placeholder="My Security Group" type="text" id="sg_name_${counter}">
+                        placeholder="My Security Group" type="text" id="sg_name_0">
                     </td>
                   </tr>
                 </table>
@@ -207,76 +236,77 @@ $(document).ready(function() {
                     <td>
                       <input
                         class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                        placeholder="SG Description" type="text" id="sg_description_${counter}">
+                        placeholder="SG Description" type="text" id="sg_description_0">
                     </td>
                   </tr>
                 </table> 
-                <table>
+                <table  id="ingress_table_0">
                   <tr>
                     <td>
-                      <b>Ingress</b><span class="text-xs">&nbsp;(비워둘 시 생성하지 않음)</span>
+                      <b>Ingress</b>&nbsp;&nbsp;&nbsp;<select id="select_sg_ingress_0">
+                        <option value=0 >0</option>
+                        <option value=1 selected>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                      </select>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="Description" type="text" id="ingress_description_${counter}" />
+                      placeholder="Description" type="text" id="ingress_description_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="From" type="text" id="ingress_from_${counter}" />
+                      placeholder="From" type="text" id="ingress_from_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="To" type="text" id="ingress_to_${counter}" />
+                      placeholder="To" type="text" id="ingress_to_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="TCP" type="text" id="ingress_to_${counter}" />
+                      placeholder="TCP" type="text" id="ingress_to_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="0.0.0.0/0" type="text" id="ingress_to_${counter}" />
-                      <input type="button"
-                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      value="+" id="add_ingress_${counter}" onclick='
-                      (function(element) { var row = element.parentNode.parentNode; var table = row.parentNode; var index = Array.prototype.indexOf.call(table.children, row); if (index === 1) { table.removeChild(row); } })(this);
-                      ';/>
-                      <input type="button"
-                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      value="-" id="del_ingress_${counter}" onclick='
-                      (function(element) { var row = element.parentNode.parentNode; var table = row.parentNode; var index = Array.prototype.indexOf.call(table.children, row); if (index === 1) { table.removeChild(row); } })(this);
-                      ';/>
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0" />
                     </td>
                   </tr>
                 </table>
-                <table>
+                <table id="sg_egress_table_0">
                   <tr>
                     <td>
-                      <b>Egress</b><span class="text-xs">&nbsp;(비워둘 시 생성하지 않음)</span>
+                      <b>Egress</b>&nbsp;&nbsp;&nbsp;
+                      <select name="priv" id="select_sg_egress_0">
+                        <option value=0>0</option>
+                        <option value=1 selected>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                      </select>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="Description" type="text" id="egress_description_${counter}" />
+                      placeholder="Description" type="text" id="egress_description_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="From" type="text" id="egress_from_${counter}" />
+                      placeholder="From" type="text" id="egress_from_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="To" type="text" id="egress_to_${counter}" />
+                      placeholder="To" type="text" id="egress_to_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="TCP" type="text" id="egress_to_${counter}" />
+                      placeholder="TCP" type="text" id="egress_to_0" />
                       <input
                       class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="0.0.0.0/0" type="text" id="ingress_to_${counter}" />
-                      <input type="button"
-                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      value="+" id="add_egress_btn_${counter}"/>
+                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0" />
                     </td>
                   </tr>
                 </table> 
               </div>
+            </div>
         `
         $("#sg_div").append(context);
 
