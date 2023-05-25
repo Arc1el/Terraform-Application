@@ -71,6 +71,7 @@ var logger = require('./socket_logger/logger');
 var terraform = require('./terraform_modules/terraform');
 var provider = require('./terraform_modules/provider');
 var vpc = require('./terraform_modules/vpc');
+var sg = require('./terraform_modules/securitygroups');
 
 app.io.on('connection', async (socket) => {
   try{
@@ -120,6 +121,18 @@ app.io.on('connection', async (socket) => {
       socket.emit('log_health', vpc_tf_context);
       s3.upload({access_key: access_key, filename: "vpc.tf", context: vpc_tf_context, title: title});
       logger.logSeperate({socket, msg : "create VPC.tf Successfully!!"});
+    });
+
+    socket.on('create_sg', (data) => {
+      const access_key            = data.access_key;
+      const title                 = data.title;
+      const sg_name = data.name;
+      const description = data.description;
+      const ingress = data.ingress;
+      const egress = data.egress;
+      !fs.existsSync("tf_files/" + access_key + "/" + title) && fs.mkdirSync("tf_files/" + access_key + "/" + title, {recursive: true});
+      let sg_tf_context = sg.createSecurityGroup({access_key, title, sg_name, description, ingress, egress});
+      s3.upload({access_key: access_key,sg_name : sg_name, filename: "securitygroup.tf", context: sg_tf_context, title: title}); 
     });
 
     socket.on('terraform_validate', (data) => {

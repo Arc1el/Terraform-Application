@@ -501,6 +501,9 @@ placeholder="0.0.0.0/0" type="text" id="egress_cidr_${counter}_2" />
         var description = [];
         var ingress = [];
         var egress = [];
+        var access_key = $('#access_key').val();
+        var title = $('#title').val();
+        var sg_description = $('')
 
         // if (!vpc_cidr) vpc_cidr = '10.0.0.0/16';
         for (var i = 0; i < counter; i++) {
@@ -549,6 +552,6 @@ placeholder="0.0.0.0/0" type="text" id="egress_cidr_${counter}_2" />
         console.log(ingress);
         console.log(egress) 
         
-        socket.emit('create_sg', {access_key, title, vpc_cidr, public_subnet_data, private_subnet_data, database_subnet_data, nat_gateway_data, title});
+        socket.emit('create_sg', {access_key, title, name, description, ingress, egress});
     });
 });
