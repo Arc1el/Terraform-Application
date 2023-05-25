@@ -264,6 +264,7 @@
     <div class="w-full px-6 py-6 mx-auto">
       <div>
         <h2>Select Services</h2>
+        <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
       </div>
       <div class="flex flex-wrap mt-6 -mx-3">
         <div class="w-full px-3 mb-6 lg:mb-0 lg:w-full lg:flex-none ">
@@ -378,6 +379,7 @@
             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4"
             name="providers_div">
             <h4>Providers</h4>
+            <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
             <table>
               <tr>
                 <td>
@@ -449,7 +451,8 @@
         <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
           <div
             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" name="vpc_div">
-            <h4>VPC</h4>
+            <h4 style="display:inline-block;" >VPC&nbsp;<span style="display: inline-block;" class="text-xs text-gray-200">(비워둘 시  Placeholder값으로 자동 생성)</span></h4>
+            <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
             <table>
               <tr>
                 <td>
@@ -460,7 +463,7 @@
                 <td>
                   <input
                     class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                    placeholder="10.0.0.0/16" type="text" name="cidr" id="vpc_cidr">
+                    placeholder="10.0.0.0/16" type="text" name="cidr" id="vpc_cidr" required>
                 </td>
               </tr>
             </table>
@@ -554,6 +557,7 @@
         <div class="w-full px-3 mb-6 lg:mb-3 lg:w-12/12 lg:flex-none">
           <div class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4">
             <h4>Security Groups</h4>
+            <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
             <div id="sg_div" class="relative flex h-full min-w-0 flex-col break-words"> 
               <div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" >
                 <table>
@@ -738,6 +742,7 @@
           <div
             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" name="vpc_div">
             <h4>EC2</h4>
+            <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
             <div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4"" >
               <table>
                 <tr>
@@ -860,7 +865,27 @@
         </div>
         <!-- End Toggle Button -->
       </div>
-      <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
+      <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent"/>
+      <div id="terraform-output" style="overflow:scroll" class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4 text-xs">
+        
+      </div><br>
+      <div class="text-right">
+        <input type="button" id="tf_init_btn"
+                    class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    value="Init"/>
+        <input type="button" id="tf_validate_btn"
+                    class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                    value="Validate"/>
+        <input type="button" id="tf_plan_btn"
+                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      value="Plan"/>
+        <input type="button" id="tf_apply_btn"
+                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      value="Apply"/>
+        <input type="button" id="tf_destroy_btn"
+                      class=" min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      value="Destroy"/>
+      </div> 
       <div class="flex-auto p-6 pt-0 sm:pt-4">
         <!-- Sidebar Backgrounds -->
         <div>

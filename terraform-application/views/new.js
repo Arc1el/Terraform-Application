@@ -74,7 +74,7 @@ $(document).ready(function() {
                     </select>&nbsp;&nbsp;&nbsp;
                 </td>
                 <td>
-                    <input class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" placeholder="10.0.${i+1}.0/24" type="text" name="cidr" id="priv_subnet_${i}_cidr">&nbsp;&nbsp;&nbsp;
+                    <input class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" placeholder="10.0.2${i+1}.0/24" type="text" name="cidr" id="priv_subnet_${i}_cidr">&nbsp;&nbsp;&nbsp;
                 </td>
                 <td>
                 <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" name ="priv" id="select_priv_subnets_${i}">
@@ -107,7 +107,7 @@ $(document).ready(function() {
                     </select>&nbsp;&nbsp;&nbsp;
                 </td>
                 <td>
-                    <input class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" placeholder="10.0.${i+1}.0/24" type="text" name="cidr" id="db_subnet_${i}_cidr">&nbsp;&nbsp;&nbsp;
+                    <input class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" placeholder="10.0.3${i+1}.0/24" type="text" name="cidr" id="db_subnet_${i}_cidr">&nbsp;&nbsp;&nbsp;
                 </td>
                 <td>
                 <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" name ="db" id="select_db_subnets_${i}">
@@ -151,11 +151,17 @@ $(document).ready(function() {
 
 
     socket.on('log_health', function(data) {
-        var textarea_str = $("#log-health").val();
-        textarea_str += data;
-        $("#log-health").html(textarea_str);
-        const top = $('#log-health').prop('scrollHeight');
-        $('#log-health').scrollTop(top); 
+        // var textarea_str = $("#terraform-output").val();
+        // textarea_str += data;
+        // $("#terraform-output").html(textarea_str);
+        // const top = $('#terraform-output').prop('scrollHeight');
+        // $('#terraform-output').scrollTop(top);
+        console.log("tf_log : " + data);
+        var tf_div_data = $("#terraform-output").val();
+        tf_div_data += data;
+        $("#terraform-output").append("<p>" + tf_div_data + "</p><br>");
+        const top = $('#terraform-output').prop('scrollHeight');
+        $('#terraform-output').scrollTop(top); 
     });
 
     socket.on('tf_log', function(data) {
@@ -328,30 +334,42 @@ $(document).ready(function() {
         socket.emit('create_providers', {access_key, secret_key, region, title}); 
     });
 
-    // document.querySelector('#tf_init_btn').addEventListener('click', (event) => {
-    //     event.preventDefault();
-    //     var access_key = $('#access_key').val();
-    //     console.log(access_key);
-    //     socket.emit('terraform_init', {access_key})
-    // })
-    // document.querySelector('#tf_plan_btn').addEventListener('click', (event) => {
-    //     event.preventDefault();
-    //     var access_key = $('#access_key').val();
-    //     console.log(access_key);
-    //     socket.emit('terraform_plan', {access_key})
-    // })
-    // document.querySelector('#tf_apply_btn').addEventListener('click', (event) => {
-    //     event.preventDefault();
-    //     var access_key = $('#access_key').val();
-    //     console.log(access_key);
-    //     socket.emit('terraform_apply', {access_key})
-    // })
-    // document.querySelector('#tf_destroy_btn').addEventListener('click', (event) => {
-    //     event.preventDefault();
-    //     var access_key = $('#access_key').val();
-    //     console.log(access_key);
-    //     socket.emit('terraform_destroy', {access_key})
-    // })
+    document.querySelector('#tf_validate_btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        var access_key = $('#access_key').val();
+        var title = $('#title').val();
+        console.log(access_key);
+        socket.emit('terraform_validate', {access_key, title});
+    })
+
+    document.querySelector('#tf_init_btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        var access_key = $('#access_key').val();
+        var title = $('#title').val();
+        console.log(access_key);
+        socket.emit('terraform_init', {access_key, title});
+    })
+    document.querySelector('#tf_plan_btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        var access_key = $('#access_key').val();
+        var title = $('#title').val();
+        console.log(access_key);
+        socket.emit('terraform_plan', {access_key, title});
+    })
+    document.querySelector('#tf_apply_btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        var access_key = $('#access_key').val();
+        var title = $('#title').val();
+        console.log(access_key);
+        socket.emit('terraform_apply', {access_key, title});
+    })
+    document.querySelector('#tf_destroy_btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        var access_key = $('#access_key').val();
+        var title = $('#title').val();
+        console.log(access_key);
+        socket.emit('terraform_destroy', {access_key, title});
+    })
 
     document.querySelector('#create_vpc_btn').addEventListener('click', (event) => {
         console.log('create_vpc_btn clicked', event);
@@ -376,6 +394,7 @@ $(document).ready(function() {
             let data = {index: i, az: az, cidr: cidr, gateway: gate}
             public_subnet_data.push(data);
         }
+        console.log("public_subnet_data : " + public_subnet_data);
         
         //private subnet data
         var private_subnet_data = [];
@@ -409,132 +428,4 @@ $(document).ready(function() {
         // send data to "create_vpc" socket
         socket.emit('create_vpc', {access_key, title, vpc_cidr, public_subnet_data, private_subnet_data, database_subnet_data, nat_gateway_data, title});
     });
-
-    // $("#select_pub_subnets").change(function() {
-    //     // data reset
-    //     console.log("ok"); 
-    //     table_pub_subnets.html("");
-    //     table_nat_gateways.html("");
-    //     let len = $(this).val();
-
-    //     for (var i = 0; i <len; i++) {
-    //         table_pub_subnets.append(`
-    //         <tr>
-    //             <td>
-    //                 Public_${i}
-    //             </td>
-    //             <td>
-    //                 <select name ="az" id="select_pub_az_${i}">
-    //                     <option value = a selectd>A</option>
-    //                     <option value = b>B</option>
-    //                     <option value = c>C</option>
-    //                 </select>
-    //             </td>
-    //             <td>
-    //                 <input class="gen_sub_input_cidr" placeholder="10.0.${i+1}.0/24" type="text" name="cidr" id="pub_subnet_${i}_cidr">
-    //             </td>
-    //             <td>
-    //             <select name ="pub" id="select_pub_subnets_${i}">
-    //                 <option value = non >None</option>
-    //                 <option value = igw selected>Internet Gateway</option>
-    //                 <option value = nat>Nat Gateway</option>
-    //             </select>
-    //             </td>
-    //         </tr>
-    //         `) 
-    //     }
-    // });
-
-    // $("#select_priv_subnets").change(function() {
-    //     // data reset 
-    //     table_priv_subnets.html("");
-    //     let len = $(this).val();
-        
-    //     for (var i = 0; i <len; i++) {
-    //         table_priv_subnets.append(`
-    //         <tr>
-    //             <td>
-    //                 Private_${i}
-    //             </td>
-    //             <td>
-    //                 <select name ="az" id="select_priv_az_${i}">
-    //                     <option value = a selectd>A</option>
-    //                     <option value = b>B</option>
-    //                     <option value = c>C</option>
-    //                 </select>
-    //             </td>
-    //             <td>
-    //                 <input class="gen_sub_input_cidr" placeholder="10.0.2${i+1}.0/24" type="text" name="cidr" id="priv_subnet_${i}_cidr">
-    //             </td>
-    //             <td>
-    //             <select name ="priv" id="select_priv_subnets_${i}">
-    //                 <option value = non >None</option>
-    //                 <option value = igw >Internet Gateway</option>
-    //                 <option value = nat selected>Nat Gateway</option>
-    //             </select>
-    //             </td>
-    //         </tr>
-    //         `)
-    //     }
-    // });
-
-    // $("#select_db_subnets").change(function() {
-    //     // data reset  
-    //     table_db_subnets.html("");
-    //     let len = $(this).val();
-
-    //     for (var i = 0; i <len; i++) {
-    //         table_db_subnets.append(`
-    //         <tr>
-    //             <td>
-    //                 DB_${i}
-    //             </td>
-    //             <td>
-    //                 <select name ="az" id="select_db_az_${i}">
-    //                     <option value = a selectd>A</option>
-    //                     <option value = b>B</option>
-    //                     <option value = c>C</option>
-    //                 </select>
-    //             </td>
-    //             <td>
-    //                 <input class="gen_sub_input_cidr" placeholder="10.0.3${i+1}.0/24" type="text" name="cidr" id="db_subnet_${i}_cidr">
-    //             </td>
-    //             <td>
-    //             <select name ="pub" id="select_db_subnets_${i}">
-    //                 <option value = non selected>None</option>
-    //                 <option value = igw>Internet Gateway</option>
-    //                 <option value = nat>Nat Gateway</option>
-    //             </select>
-    //             </td>
-    //         </tr>
-    //         `)
-    //     }
-    // });
-
-    // $("#select_nat_gateway").change(function() {;
-    //     // data reset 
-    //     table_nat_gateways.html("");
-    //     let len     = $(this).val(); 
-    //     let pub_len = $("#select_pub_subnets").val();
-        
-    //     for (var i = 0; i < len; i++) {
-    //         opt = "";
-    //         for (var j = 0; j <pub_len; j++) {
-    //             opt +=`<option value="${j}">Public_Subnet_${j}</option>`
-    //         };
-    //         console.log("opt : ", opt);
-    //         table_nat_gateways.append(`
-    //         <tr id = "nat_gateway_tr_${i}">
-    //             <td>
-    //                 Nat_Gateway_${i}
-    //             <td>
-    //             <td>
-    //                 <select id = "select_nat_gateway_subnets_${i}">`
-    //                 + opt +
-    //                 `</select>
-    //             </td> 
-    //         </tr>
-    //         `);
-    //     }
-    // });
 });
