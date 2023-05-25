@@ -174,146 +174,208 @@ $(document).ready(function() {
     })
 
     document.querySelector("#select_nat_gateway").addEventListener("change", function(){
-      table_nat_gateways.html("");
-      let len     = $(this).val(); 
-      let pub_len = $("#select_pub_subnets").val();
-      for (var i = 0; i < len; i++) {
-          opt = "";
-          for (var j = 0; j <pub_len; j++) {
-              opt +=`<option value="${j}">Public_Subnet_${j}</option>`
-          };
-          console.log("opt : ", opt);
-          if (opt === "") {
-              opt = `<option value=0>퍼블릭 서브넷을 먼저 선택해주세요</`
-          }
-          table_nat_gateways.append(`
-          <tr>
-              <td>
-                  Nat Gateway [${i}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <td>
-              <td>
-                  <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" id = "select_nat_gateway_subnets_${i}">`
-                  + opt +
-                  `</select>
-              </td> 
-          </tr>
-          `);
-      }
+        table_nat_gateways.html("");
+        let len     = $(this).val(); 
+        let pub_len = $("#select_pub_subnets").val();
+        for (var i = 0; i < len; i++) {
+            opt = "";
+            for (var j = 0; j <pub_len; j++) {
+                opt +=`<option value="${j}">Public_Subnet_${j}</option>`
+            };
+            console.log("opt : ", opt);
+            if (opt === "") {
+                opt = `<option value=0>퍼블릭 서브넷을 먼저 선택해주세요</`
+            }
+            table_nat_gateways.append(`
+            <tr>
+                <td>
+                    Nat Gateway [${i}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <td>
+                <td>
+                    <select class="text-right min-w-full pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow gen_sub_input_cidr" id = "select_nat_gateway_subnets_${i}">`
+                    + opt +
+                    `</select>
+                </td> 
+            </tr>
+            `);
+        }
     });
 
 
     document.querySelector("#add_sg_btn").addEventListener("click", (event) => {
-        $('[id^="delete_sg_btn_"]').on("click", (event) => {
-            console.log("Asdf");
-            console.log($(event.currentTarget).attr("id")); 
-        });
+        // $('[id^="delete_sg_btn_"]').on("click", (event) => {
+        //     console.log("Asdf");
+        //     console.log($(event.currentTarget).attr("id")); 
+        // });
 
-        console.log("add_sg_")
-        counter = Number($("#sg_count").text());
-        counter += 1;
+        counter = Number($("#sg_count").text()) + 1;
         $("#sg_count").text(counter); 
         console.log(counter);
         event.preventDefault();
         context = `
-        <br>
-            <div id="sg_div" class="relative flex h-full min-w-0 flex-col break-words"> 
-              <div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" >
-                <table>
-                  <tr>
-                    <td>
-                      <b>Security Group Name</b>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                        placeholder="My Security Group" type="text" id="sg_name_0">
-                    </td>
-                  </tr>
-                </table>
-                <table>
-                  <tr>
-                    <td>
-                      <b>Security Group Description</b>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                        placeholder="SG Description" type="text" id="sg_description_0">
-                    </td>
-                  </tr>
-                </table> 
-                <table  id="ingress_table_0">
-                  <tr>
-                    <td>
-                      <b>Ingress</b>&nbsp;&nbsp;&nbsp;<select id="select_sg_ingress_0">
-                        <option value=0 >0</option>
-                        <option value=1 selected>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
-                        <option value=4>4</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="Description" type="text" id="ingress_description_0" />
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="From" type="text" id="ingress_from_0" />
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="To" type="text" id="ingress_to_0" />
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="TCP" type="text" id="ingress_to_0" />
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0" />
-                    </td>
-                  </tr>
-                </table>
-                <table id="sg_egress_table_0">
-                  <tr>
-                    <td>
-                      <b>Egress</b>&nbsp;&nbsp;&nbsp;
-                      <select name="priv" id="select_sg_egress_0">
-                        <option value=0>0</option>
-                        <option value=1 selected>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
-                        <option value=4>4</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="Description" type="text" id="egress_description_0" />
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="From" type="text" id="egress_from_0" />
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="To" type="text" id="egress_to_0" />
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="TCP" type="text" id="egress_to_0" />
-                      <input
-                      class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="0.0.0.0/0" type="text" id="ingress_to_0" />
-                    </td>
-                  </tr>
-                </table> 
-              </div>
-            </div>
+<br>
+<div id="sg_div" class="relative flex h-full min-w-0 flex-col break-words"> 
+<div class="border-black/12.5 shadow-soft-2xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4" >
+<table>
+<tr>
+<td>
+<b>Security Group Name</b>
+</td>
+</tr>
+<tr>
+<td>
+<input
+class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="My Security Group" type="text" id="sg_name_${counter}">
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+<b>Security Group Description</b>
+</td>
+</tr>
+<tr>
+<td>
+<input
+class="min-w-full w-1/2 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="SG Description" type="text" id="sg_description_${counter}">
+</td>
+</tr>
+</table> 
+<table  id="ingress_table_${counter}">
+<tr>
+<td>
+<b>Ingress</b>&nbsp;&nbsp;&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="비워 둘 시 생성안됨" type="text" id="ingress_description_${counter}_0" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="From" type="text" id="ingress_from_${counter}_0" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="To" type="text" id="ingress_to_${counter}_0" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="TCP" type="text" id="ingress_protocol_${counter}_0" />
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="0.0.0.0/0" type="text" id="ingress_cidr_${counter}_0" />
+</td>
+</tr>
+<tr>
+<td>
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="Description" type="text" id="ingress_description_${counter}_1" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="From" type="text" id="ingress_from_${counter}_1" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="To" type="text" id="ingress_to_${counter}_1" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="TCP" type="text" id="ingress_protocol_${counter}_1" />
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="0.0.0.0/0" type="text" id="ingress_cidr_${counter}_1" />
+</td>
+</tr>
+<tr>
+<td>
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="Description" type="text" id="ingress_description_${counter}_2" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="From" type="text" id="ingress_from_${counter}_2" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="To" type="text" id="ingress_to_${counter}_2" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="TCP" type="text" id="ingress_protocol_${counter}_2" />
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="0.0.0.0/0" type="text" id="ingress_cidr_${counter}_2" />
+</td>
+</tr>
+</table>
+<table id="sg_egress_table_${counter}">
+<tr>
+<td>
+<b>Egress</b>&nbsp;&nbsp;&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="비워 둘 시 생성안됨" type="text" id="egress_description_${counter}_0" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="0" type="text" id="egress_from_${counter}_0" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="0" type="text" id="egress_to_${counter}_0" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="-1" type="text" id="egress_protocol_${counter}_0" />
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="0.0.0.0/0" type="text" id="egress_cidr_${counter}_0" />
+</td>
+</tr>
+<tr>
+<td>
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="Description" type="text" id="egress_description_${counter}_1" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="From" type="text" id="egress_from_${counter}_1" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="To" type="text" id="egress_to_${counter}_1" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="TCP" type="text" id="egress_protocol_${counter}_1" />
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="0.0.0.0/0" type="text" id="egress_cidr_${counter}_1" />
+</td>
+</tr>
+<tr>
+<td>
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="Description" type="text" id="egress_description_${counter}_2" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="From" type="text" id="egress_from_${counter}_2" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="To" type="text" id="egress_to_${counter}_2" />
+<input
+class="min-w-full w-16 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="TCP" type="text" id="egress_protocol_${counter}_2" />
+<input
+class="min-w-full w-1/12 pl-3 text-sm focus:shadow-soft-primary-outline rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+placeholder="0.0.0.0/0" type="text" id="egress_cidr_${counter}_2" />
+</td>
+</tr>
+</table> 
+</div>
+</div>
         `
+        counter += 1;
         $("#sg_div").append(context);
 
     });
@@ -427,5 +489,66 @@ $(document).ready(function() {
         
         // send data to "create_vpc" socket
         socket.emit('create_vpc', {access_key, title, vpc_cidr, public_subnet_data, private_subnet_data, database_subnet_data, nat_gateway_data, title});
+    });
+    
+
+    document.querySelector('#create_sg_btn').addEventListener('click', (event) => {
+        console.log('create_sg_btn clicked');
+        event.preventDefault();
+        counter = Number($("#sg_count").text()) + 1;
+        console.log("sg count : " , counter)
+        var name = [];  
+        var description = [];
+        var ingress = [];
+        var egress = [];
+
+        // if (!vpc_cidr) vpc_cidr = '10.0.0.0/16';
+        for (var i = 0; i < counter; i++) {
+            name.push($(`#sg_name_${i}`).val());
+            description.push($(`#sg_descirption_${i}`).val());
+            let ingress_data = []; 
+            for (let j = 0; j <= 2; j++) {
+                let ingress_description = $(`#ingress_description_${i}_${j}`).val();
+                
+                if (ingress_description) {
+                let ingress_from = $(`#ingress_from_${i}_${j}`).val();
+                let ingress_to = $(`#ingress_to_${i}_${j}`).val();
+                let ingress_protocol = $(`#ingress_protocol_${i}_${j}`).val();
+                let ingress_cidr = $(`#ingress_cidr_${i}_${j}`).val();
+                
+                ingress_data.push(ingress_description);
+                ingress_data.push(ingress_from);
+                ingress_data.push(ingress_to);
+                ingress_data.push(ingress_protocol);
+                ingress_data.push(ingress_cidr);
+                }
+            } 
+            ingress.push(ingress_data);
+
+            let egress_data = []; 
+            for (let j = 0; j <= 2; j++) {
+                let egress_description = $(`#egress_description_${i}_${j}`).val();
+                
+                if (egress_description) {
+                let egress_from = $(`#egress_from_${i}_${j}`).val();
+                let egress_to = $(`#egress_to_${i}_${j}`).val();
+                let egress_protocol = $(`#egress_protocol_${i}_${j}`).val();
+                let egress_cidr = $(`#egress_cidr_${i}_${j}`).val();
+                
+                egress_data.push(egress_description);
+                egress_data.push(egress_from);
+                egress_data.push(egress_to);
+                egress_data.push(egress_protocol);
+                egress_data.push(egress_cidr);
+                }
+            } 
+            egress.push(egress_data);
+        }
+        console.log(name);
+        console.log(description);
+        console.log(ingress);
+        console.log(egress) 
+        
+        socket.emit('create_sg', {access_key, title, vpc_cidr, public_subnet_data, private_subnet_data, database_subnet_data, nat_gateway_data, title});
     });
 });
