@@ -72,6 +72,7 @@ var terraform = require('./terraform_modules/terraform');
 var provider = require('./terraform_modules/provider');
 var vpc = require('./terraform_modules/vpc');
 var sg = require('./terraform_modules/securitygroups');
+var ec2 = require('./terraform_modules/ec2');
 
 app.io.on('connection', async (socket) => {
   try{
